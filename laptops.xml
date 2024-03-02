@@ -1,0 +1,9 @@
+<laptops>
+    <laptop name = "Dell">
+        <price values  ="50000"/>
+        <ram values="8GB"/>
+        <ssd values="256GB"/>
+    </laptop>
+
+
+</laptops>

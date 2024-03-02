@@ -20,6 +20,11 @@
         <artifactId>javafx-swing</artifactId>
         <version>23-ea+3</version>
     </dependency>
+    <dependency>
+        <groupId>org.eclipse.paho</groupId>
+        <artifactId>org.eclipse.paho.client.mqttv3</artifactId>
+        <version>1.2.5</version>
+    </dependency>
 
 </dependencies>
 </project>
