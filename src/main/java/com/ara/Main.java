@@ -1,28 +1,15 @@
 package com.ara;
 
-import com.google.gson.Gson;
-import lombok.SneakyThrows;
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
-public class Main {
-    private static JPanel contentPanel1;
-    private static JPanel contentPanel2;
-    private static JPanel contentPanel3;
-    private static JPanel contentPanel4;
-
-    @SneakyThrows
+//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
+// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+public class Main  {
+    private static JPanel contentPanel1 ;
+    private static JPanel contentPanel2 ;
+    private static JPanel contentPanel3 ;
+    private static JPanel contentPanel4 ;
     public static void JavaSwingVisualCode() {
         JFrame jFrame = new JFrame();
         jFrame.setTitle("Java Swing Visual Code");
@@ -58,7 +45,7 @@ public class Main {
         drinkMixRLabel.setForeground(Color.WHITE);
         logSortPanel.add(drinkMixRLabel);
 
-        ImageIcon logoIcon = new ImageIcon("");// Replace with your actual logo path
+        ImageIcon logoIcon = new ImageIcon("") ;// Replace with your actual logo path
         JLabel logoLabel = new JLabel(logoIcon);
         logSortPanel.add(logoLabel);
 
@@ -66,84 +53,126 @@ public class Main {
 
         jFrame.add(navPanel, BorderLayout.NORTH);
 
-        // Create a panel to hold all the product panels
-        JPanel a = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        a.setBackground(Color.decode("#56753E"));
-        ServerSocket serverSocket = new ServerSocket(9999);
-Gson gson = new Gson();
-        System.out.println("Spasum em ");
-        Socket peer2socket = serverSocket.accept();
+        product1();
+        product2();
+        product3();
+        product4();
 
-        BufferedReader in = new BufferedReader(new InputStreamReader(peer2socket.getInputStream()));
-        PrintWriter out = new PrintWriter(peer2socket.getOutputStream(),true);
+        jFrame.add(contentPanel1, BorderLayout.WEST);
+        jFrame.add(contentPanel2, BorderLayout.CENTER);
+        jFrame.add(contentPanel3, BorderLayout.EAST);
+        jFrame.add(contentPanel4, BorderLayout.SOUTH);
 
-        String s = in.readLine();
-        Xmichqner xmichq1 = gson.fromJson(s, Xmichqner.class);
-        out.println(0);
-        // Loop to create product panels
-        for (int i = 0; i < 100; i++) {
-
-            Xmichqner xmichq = xmichq1;
-
-            JPanel productPanel = new JPanel();
-            productPanel.setPreferredSize(new Dimension(130, 260));
-            productPanel.setBackground(Color.decode("#56753E"));
-            productPanel.setLayout(new BoxLayout(productPanel, BoxLayout.Y_AXIS));
-
-            ImageIcon logoIcon1 = new ImageIcon(xmichq.getImg());
-            Image img = logoIcon1.getImage().getScaledInstance(70, 200, Image.SCALE_AREA_AVERAGING);
-            // Create a new ImageIcon with the resized image
-            ImageIcon resizedIcon = new ImageIcon(img);
-            // Create a JLabel with the resized image
-            JLabel image1 = new JLabel(resizedIcon);
-
-            JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 1, 1));
-            buttonPanel.setBackground(Color.decode("#56753E"));
-            JButton buyButton = new JButton("Buy");
-            int w = Integer.parseInt(in.readLine());
-            System.out.println(w);
-            
-             buyButton.addActionListener(new ActionListener() {
-                 @Override
-                 public void actionPerformed(ActionEvent e) {
-                     out.println(1);
-                     if (xmichq.isAlcho()) {
-                         System.out.println("Alcoholic karox eq ogtvel miayn appicationov");
-                     }else {
-                         out.println(xmichq.getDrink_id());
-                     }
-                 }
-             });
-            JLabel name = new JLabel(xmichq.getName());
-            JLabel description = new JLabel(xmichq.getDescription());
-
-            buttonPanel.add(buyButton);
-            productPanel.add(image1);
-            productPanel.add(name);
-            productPanel.add(description);
-            productPanel.add(buttonPanel);
-
-            // Add product panel to the container
-            a.add(productPanel);
-
-        }
-
-        // Wrap the product panel container in a JScrollPane
-         jFrame.add(a);
         jFrame.setVisible(true);
-in.close();
-out.close();
-
-peer2socket.close();
-serverSocket.close();
     }
-    private static class buttonclic implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
+    public static void product1(){
+        contentPanel1 = new JPanel();
+        contentPanel1.setBackground(Color.decode("#56753E"));
+        contentPanel1.setLayout(new FlowLayout(FlowLayout.LEFT, 20, 20));
+        JPanel productBox = new JPanel();
+        productBox.setPreferredSize(new Dimension(100, 200));
+       productBox.setBackground(Color.decode("#56753E"));
+        productBox.setLayout(new BoxLayout(productBox, BoxLayout.Y_AXIS));
 
-        }
+        ImageIcon logoIcon1 = new ImageIcon("C:\\Users\\Vardan\\Desktop\\coca cola.jpg");
+        Image img = logoIcon1.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
+// Create a new ImageIcon with the resized image
+        ImageIcon resizedIcon = new ImageIcon(img);
+// Create a JLabel with the resized image
+        JLabel image1 = new JLabel(resizedIcon);
+        productBox.add(image1);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(100,20,5));
+        buttonPanel.setBackground(Color.decode("#56753E"));
+        JButton buyButton = new JButton("Buy");
+        buttonPanel.add(Box.createHorizontalGlue()); // Pushes the button to the right
+        buttonPanel.add(buyButton);
+        productBox.add(buttonPanel, BorderLayout.SOUTH);
+
+        contentPanel1.add(productBox);
     }
+    public static void product2(){
+        contentPanel2 = new JPanel();
+        contentPanel2.setBackground(Color.decode("#56753E"));
+        contentPanel2.setLayout(new FlowLayout(10, 5, 20));
+        JPanel productBox1 = new JPanel();
+        productBox1.setPreferredSize(new Dimension(100, 200));
+        productBox1.setBackground(Color.decode("#56753E"));
+        productBox1.setLayout(new BoxLayout(productBox1, BoxLayout.Y_AXIS));
+
+        ImageIcon logoIcon1 = new ImageIcon("C:\\Users\\Vardan\\Desktop\\Pepsi.jpg");
+        Image img = logoIcon1.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
+// Create a new ImageIcon with the resized image
+        ImageIcon resizedIcon = new ImageIcon(img);
+// Create a JLabel with the resized image
+        JLabel image1 = new JLabel(resizedIcon);
+        productBox1.add(image1);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(100,20,5));
+        buttonPanel.setBackground(Color.decode("#56753E"));
+        JButton buyButton = new JButton("Buy");
+        buttonPanel.add(Box.createHorizontalGlue()); // Pushes the button to the right
+        buttonPanel.add(buyButton);
+        productBox1.add(buttonPanel, BorderLayout.SOUTH);
+
+        contentPanel2.add(productBox1);
+    }
+    public static void product3(){
+        contentPanel3 = new JPanel();
+        contentPanel3.setBackground(Color.decode("#56753E"));
+        contentPanel3.setLayout(new FlowLayout(5, 30, 20));
+        JPanel productBox = new JPanel();
+        productBox.setPreferredSize(new Dimension(100, 200));
+        productBox.setBackground(Color.decode("#56753E"));
+        productBox.setLayout(new BoxLayout(productBox, BoxLayout.Y_AXIS));
+
+        ImageIcon logoIcon1 = new ImageIcon("C:\\Users\\Vardan\\Desktop\\coca cola.jpg");
+        Image img = logoIcon1.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
+// Create a new ImageIcon with the resized image
+        ImageIcon resizedIcon = new ImageIcon(img);
+// Create a JLabel with the resized image
+        JLabel image1 = new JLabel(resizedIcon);
+        productBox.add(image1);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(100,20,5));
+        buttonPanel.setBackground(Color.decode("#56753E"));
+        JButton buyButton = new JButton("Buy");
+        buttonPanel.add(Box.createHorizontalGlue()); // Pushes the button to the right
+        buttonPanel.add(buyButton);
+        productBox.add(buttonPanel, BorderLayout.SOUTH);
+
+        contentPanel3.add(productBox);
+    }
+    public static void product4(){
+        contentPanel4 = new JPanel();
+        contentPanel4.setBackground(Color.decode("#56753E"));
+        contentPanel4.setLayout(new FlowLayout(10, 15, 20));
+        JPanel productBox1 = new JPanel();
+        productBox1.setPreferredSize(new Dimension(100, 200));
+        productBox1.setBackground(Color.decode("#56753E"));
+        productBox1.setLayout(new BoxLayout(productBox1, BoxLayout.Y_AXIS));
+
+        ImageIcon logoIcon1 = new ImageIcon("C:\\Users\\Vardan\\Desktop\\Pepsi.jpg");
+        Image img = logoIcon1.getImage().getScaledInstance(100, 150, Image.SCALE_SMOOTH);
+// Create a new ImageIcon with the resized image
+        ImageIcon resizedIcon = new ImageIcon(img);
+// Create a JLabel with the resized image
+        JLabel image1 = new JLabel(resizedIcon);
+        productBox1.add(image1);
+
+        JPanel buttonPanel = new JPanel(new FlowLayout(100,20,5));
+        buttonPanel.setBackground(Color.decode("#56753E"));
+        JButton buyButton = new JButton("Buy");
+        buttonPanel.add(Box.createHorizontalGlue()); // Pushes the button to the right
+        buttonPanel.add(buyButton);
+        productBox1.add(buttonPanel, BorderLayout.SOUTH);
+
+        contentPanel4.add(productBox1);
+    }
+
+
     public static void main(String[] args) {
         JavaSwingVisualCode();
     }
-}
+
+    }
