@@ -13,9 +13,11 @@ public class Xmichqner {
     private List<Integer> ingredientCostList;
     private boolean alcho ;
     private boolean shakeNoShake;
-    private int drink_id ;
+    private String drink_id ;
     private String img ;
     private boolean available ;
     private boolean bnakanDrink ;
+    public Xmichqner() {
+    }
 
 }

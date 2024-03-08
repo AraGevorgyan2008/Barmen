@@ -1,4 +1,6 @@
 package com.ara;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import lombok.SneakyThrows;
 
@@ -12,14 +14,17 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CountDownLatch;
 
 public class Main {
     private static JPanel contentPanel1 ;
-    private static JPanel contentPanel2 ;
+/*    private static JPanel contentPanel2 ;
     private static JPanel contentPanel3 ;
-    private static JPanel contentPanel4 ;
+    private static JPanel contentPanel4 ;*/
     @SneakyThrows
     public static void JavaSwingVisualCode() {
+        CountDownLatch latch = new CountDownLatch(1);
         Gson gson = new Gson();
         JFrame jFrame = new JFrame();
         jFrame.setTitle("Java Swing Visual Code");
@@ -55,7 +60,7 @@ public class Main {
         drinkMixRLabel.setForeground(Color.WHITE);
         logSortPanel.add(drinkMixRLabel);
 
-        ImageIcon logoIcon = new ImageIcon("") ;// Replace with your actual logo path
+        ImageIcon logoIcon = new ImageIcon("") ;
         JLabel logoLabel = new JLabel(logoIcon);
         logSortPanel.add(logoLabel);
 
@@ -70,10 +75,12 @@ public class Main {
         jFrame.add(navPanel, BorderLayout.NORTH);
         JPanel a = new JPanel();
         a.setBackground(Color.decode("#56753E"));
-        Xmichqner xmichq = gson.fromJson(in.readLine(), Xmichqner.class);
-        for (int i = 0 ; i < 100 ; i++){
-          /*  Xmichqner xmichq = new Xmichqner("coca cola",700,"Alcohol",new ArrayList<>(10),false,true,i,
-                    "C:\\Users\\Vardan\\Desktop\\coca cola.jpg",true,true);*/
+        /*Xmichqner xmichq = gson.fromJson(in.readLine(), Xmichqner.class);*/
+             String q = in.readLine();
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<Xmichqner> list =  objectMapper.readValue(q, new TypeReference<List<Xmichqner>>() {});
+        for (int i = 0 ; i < list.size() ; i++){
+            Xmichqner xmichq = list.get(i);
 
             contentPanel1 = new JPanel();
             contentPanel1.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
@@ -87,7 +94,7 @@ public class Main {
             imagepanel.setPreferredSize(new Dimension(70,200));
             imagepanel.setBackground(Color.decode("#56753E"));
 
-            ImageIcon logoIcon1 = new ImageIcon(xmichq.getImg());
+            ImageIcon logoIcon1 = new ImageIcon( "C:\\Users\\Vardan\\IdeaProjects\\Barmen\\src\\Nkarner\\" + xmichq.getImg());
             Image img = logoIcon1.getImage().getScaledInstance(70, 200, Image.SCALE_AREA_AVERAGING);
 // Create a new ImageIcon with the resized image
             ImageIcon resizedIcon = new ImageIcon(img);
@@ -103,13 +110,18 @@ public class Main {
             JLabel price = new JLabel(String.valueOf(xmichq.getPrice()));
             JLabel description = new JLabel(xmichq.getDescription());
             buttonPanel.add(Box.createHorizontalGlue());
+
 buyButton.addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (xmichq.isAlcho()){
             System.out.println("Alcholi hamar mtnel aplication");
         }else {
+
+
             out.println(xmichq.getDrink_id());
+
         }
     }
 });
