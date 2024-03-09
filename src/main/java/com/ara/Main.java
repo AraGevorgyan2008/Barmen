@@ -27,6 +27,17 @@ public class Main {
         CountDownLatch latch = new CountDownLatch(1);
         Gson gson = new Gson();
         JFrame jFrame = new JFrame();
+        JFrame loading = new JFrame("Loading...");
+        loading.setSize(200,100);
+        loading.setBounds(500,300,500,150);
+        loading.setLayout(new BorderLayout());
+        JPanel panelloading = new JPanel();
+        JLabel labelLoading = new JLabel("Loading...");
+        labelLoading.setFont(new Font("Arial",Font.ITALIC,50));
+
+        panelloading.add(labelLoading);
+        loading.add(panelloading);
+        loading.setVisible(true);
         jFrame.setTitle("Java Swing Visual Code");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setSize(800, 600);
@@ -35,7 +46,7 @@ public class Main {
         // Creating navigation panel
         JPanel navPanel = new JPanel();
         navPanel.setPreferredSize(new Dimension(800, 141));
-        navPanel.setBackground(Color.decode("#2F6541"));
+        navPanel.setBackground(new Color(144,238,144));
         navPanel.setLayout(new BoxLayout(navPanel, BoxLayout.Y_AXIS));
 
         JLabel pText = new JLabel("Armath");
@@ -49,7 +60,7 @@ public class Main {
         navPanel.add(hText);
 
         JPanel logSortPanel = new JPanel();
-        logSortPanel.setBackground(Color.decode("#2F6541"));
+        logSortPanel.setBackground(new Color(144,238,144));
         logSortPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
         JButton toggleMenuButton = new JButton("Toggle Menu");
@@ -65,6 +76,7 @@ public class Main {
         logSortPanel.add(logoLabel);
 
         navPanel.add(logSortPanel);
+
         ServerSocket serverSocket = new ServerSocket(9999);
         Socket peer2Socket = serverSocket.accept();
 
@@ -74,8 +86,9 @@ public class Main {
 
         jFrame.add(navPanel, BorderLayout.NORTH);
         JPanel a = new JPanel();
-        a.setBackground(Color.decode("#56753E"));
+        a.setBackground(new Color(248,252,238));
         /*Xmichqner xmichq = gson.fromJson(in.readLine(), Xmichqner.class);*/
+        loading.setVisible(false);
              String q = in.readLine();
         ObjectMapper objectMapper = new ObjectMapper();
         List<Xmichqner> list =  objectMapper.readValue(q, new TypeReference<List<Xmichqner>>() {});
@@ -84,17 +97,17 @@ public class Main {
 
             contentPanel1 = new JPanel();
             contentPanel1.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
-            contentPanel1.setBackground(Color.decode("#56753E"));
+            contentPanel1.setBackground(new Color(248,252,238));
             JPanel productBox = new JPanel();
             productBox.setPreferredSize(new Dimension(130, 300));
-            productBox.setBackground(Color.decode("#56753E"));
+            productBox.setBackground(new Color(248,252,238));
             productBox.setLayout(new BoxLayout(productBox, BoxLayout.PAGE_AXIS));
 
             JPanel imagepanel = new JPanel();
             imagepanel.setPreferredSize(new Dimension(70,200));
-            imagepanel.setBackground(Color.decode("#56753E"));
+            imagepanel.setBackground(new Color(248,252,238));
 
-            ImageIcon logoIcon1 = new ImageIcon( "C:\\Users\\Vardan\\IdeaProjects\\Barmen\\src\\Nkarner\\" + xmichq.getImg());
+            ImageIcon logoIcon1 = new ImageIcon( "C:\\Users\\intech\\IdeaProjects\\Barmen2\\src\\Nkarner\\" + xmichq.getImg());
             Image img = logoIcon1.getImage().getScaledInstance(70, 200, Image.SCALE_AREA_AVERAGING);
 // Create a new ImageIcon with the resized image
             ImageIcon resizedIcon = new ImageIcon(img);
@@ -104,7 +117,7 @@ public class Main {
             imagepanel.add(image1);
 
             JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,1,1));
-            buttonPanel.setBackground(Color.decode("#56753E"));
+            buttonPanel.setBackground(new Color(248,252,238));
             JButton buyButton = new JButton("Buy");
             JLabel name = new JLabel(xmichq.getName());
             JLabel price = new JLabel(String.valueOf(xmichq.getPrice()));
