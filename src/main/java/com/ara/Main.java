@@ -46,7 +46,7 @@ public class Main {
         // Creating navigation panel
         JPanel navPanel = new JPanel();
         navPanel.setPreferredSize(new Dimension(800, 141));
-        navPanel.setBackground(new Color(144,238,144));
+        navPanel.setBackground(new Color(188, 250, 183));
         navPanel.setLayout(new BoxLayout(navPanel, BoxLayout.Y_AXIS));
 
         JLabel pText = new JLabel("Armath");
@@ -60,7 +60,7 @@ public class Main {
         navPanel.add(hText);
 
         JPanel logSortPanel = new JPanel();
-        logSortPanel.setBackground(new Color(144,238,144));
+        logSortPanel.setBackground(new Color(188, 250, 183));
         logSortPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
         JButton toggleMenuButton = new JButton("Toggle Menu");
