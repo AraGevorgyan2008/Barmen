@@ -2,6 +2,7 @@ package com.ara;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import javafx.scene.image.ImageView;
 import lombok.SneakyThrows;
 import org.eclipse.paho.client.mqttv3.*;
 
@@ -24,25 +25,26 @@ public class Main {
     private static JPanel contentPanel1 ;
     private static JPanel a ;
     private static JFrame jFrame;
-/*    private static JPanel contentPanel2 ;
-    private static JPanel contentPanel3 ;
-    private static JPanel contentPanel4 ;*/
+    /*    private static JPanel contentPanel2 ;
+        private static JPanel contentPanel3 ;
+        private static JPanel contentPanel4 ;*/
     public static void Mqtt(List<Xmichqner> list){
 
     }
     @SneakyThrows
     public static void JavaSwingVisualCode() {
 
- /*       JFrame loading = new JFrame("Loading...");
+        JFrame loading = new JFrame("Loading...");
         loading.setSize(200,100);
         loading.setBounds(500,300,500,150);
         loading.setLayout(new BorderLayout());
         JPanel panelloading = new JPanel();
-        JLabel labelLoading = new JLabel("Loading...");
-        labelLoading.setFont(new Font("Arial",Font.ITALIC,50));*/
-/*
+        ImageIcon loadingIcon = new ImageIcon("C:\\Users\\intech\\IdeaProjects\\Barmen2\\src\\Nkarner\\Spinner-1s-200px.gif");
+        JLabel labelLoading = new JLabel(loadingIcon);
+        /*labelLoading.setFont(new Font("Arial",Font.ITALIC,50));*/
+
         panelloading.add(labelLoading);
-        loading.add(panelloading);*/
+        loading.add(panelloading);
         jFrame = new JFrame();
 
         jFrame.setTitle("Java Swing Visual Code");
@@ -91,6 +93,7 @@ public class Main {
         String broker = "tcp://soldier.cloudmqtt.com:12147";
         String clientId = "client";
         String topic = "topic1";
+        String topic2 = "topic2";
         int subQos = 1;
         int pubQos = 1;
         try {
@@ -114,6 +117,7 @@ public class Main {
                 client.setCallback(new MqttCallback() {
                     public void messageArrived(String topic, MqttMessage message) throws Exception {
                         a = new JPanel();
+                        a.setBackground(new Color(188, 250, 183));
                         System.out.println("topic: " + topic);
                         System.out.println("qos: " + message.getQos());
                         String info = new String(message.getPayload());
@@ -121,19 +125,19 @@ public class Main {
 
                         List<Xmichqner> list =  objectMapper.readValue(info, new TypeReference<List<Xmichqner>>() {});
                         for (int i = 0 ; i < list.size() ; i++){
+
                             Xmichqner xmichq = list.get(i);
-                            a = new JPanel();
                             contentPanel1 = new JPanel();
                             contentPanel1.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
-                            contentPanel1.setBackground(new Color(248,252,238));
+                            contentPanel1.setBackground(new Color(188, 250, 183));
                             JPanel productBox = new JPanel();
                             productBox.setPreferredSize(new Dimension(130, 300));
-                            productBox.setBackground(new Color(248,252,238));
+                            productBox.setBackground(new Color(188, 250, 183));
                             productBox.setLayout(new BoxLayout(productBox, BoxLayout.PAGE_AXIS));
 
                             JPanel imagepanel = new JPanel();
                             imagepanel.setPreferredSize(new Dimension(70,200));
-                            imagepanel.setBackground(new Color(248,252,238));
+                            imagepanel.setBackground(new Color(188, 250, 183));
 
                             ImageIcon logoIcon1 = new ImageIcon( "C:\\Users\\intech\\IdeaProjects\\Barmen2\\src\\Nkarner\\" + xmichq.getImg());
                             Image img = logoIcon1.getImage().getScaledInstance(70, 200, Image.SCALE_AREA_AVERAGING);
@@ -145,21 +149,27 @@ public class Main {
                             imagepanel.add(image1);
 
                             JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER,1,1));
-                            buttonPanel.setBackground(new Color(248,252,238));
+                            buttonPanel.setBackground(new Color(188, 250, 183));
                             JButton buyButton = new JButton("Buy");
                             JLabel name = new JLabel(xmichq.getName());
+                            name.setBackground(Color.BLACK);
                             JLabel price = new JLabel(String.valueOf(xmichq.getPrice()));
+                            price.setBackground(Color.BLACK);
                             JLabel description = new JLabel(xmichq.getDescription());
+                            description.setBackground(Color.BLACK);
                             buttonPanel.add(Box.createHorizontalGlue());
 
                             buyButton.addActionListener(new ActionListener() {
+                                @SneakyThrows
                                 @Override
                                 public void actionPerformed(ActionEvent e) {
 
                                     if (xmichq.isAlcho()){
                                         System.out.println("Alcholi hamar mtnel aplication");
                                     }else {
-
+                                        MqttMessage id = new MqttMessage(xmichq.getDrink_id().getBytes());
+                                        client.publish(topic2,id);
+                                        loading.setVisible(true);
                                     }
                                 }
                             });
@@ -168,12 +178,12 @@ public class Main {
                             productBox.add(name);
                             productBox.add(price);
                             productBox.add(description);
-                            productBox.add(buttonPanel, BorderLayout.CENTER);
+                            productBox.add(buttonPanel);
 
                             contentPanel1.add(productBox);
-                            a.setBackground(new Color(248,252,238));
+
                             a.add(contentPanel1);
-                            jFrame.add(a);
+                            navPanel.add(a);
                         }
 
                     }
@@ -190,8 +200,7 @@ public class Main {
                 client.subscribe(topic, subQos);
             }
 
-            client.disconnect();
-            client.close();
+
 
         } catch (MqttException e) {
             e.printStackTrace();
@@ -215,10 +224,10 @@ public class Main {
 
 
 
-jFrame.add(navPanel);
-jFrame.add(logSortPanel);
+        jFrame.add(navPanel);
 
         jFrame.setVisible(true);
+
     }
 
     public static void main(String[] args) {
