@@ -35,21 +35,24 @@ public class Main {
     public static void JavaSwingVisualCode() {
 
         JFrame loading = new JFrame("Loading...");
-        loading.setSize(200,100);
-        loading.setBounds(500,300,500,150);
+        loading.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        loading.setUndecorated(true);
+        loading.setBounds(450,250,500,250);
         loading.setLayout(new BorderLayout());
         JPanel panelloading = new JPanel();
         ImageIcon loadingIcon = new ImageIcon("C:\\Users\\intech\\IdeaProjects\\Barmen2\\src\\Nkarner\\Spinner-1s-200px.gif");
         JLabel labelLoading = new JLabel(loadingIcon);
-        /*labelLoading.setFont(new Font("Arial",Font.ITALIC,50));*/
+        JLabel lcvume = new JLabel("Սպասեք մինչև կլցվի");
+        lcvume.setFont(new Font("Arial",Font.ITALIC,30));
 
         panelloading.add(labelLoading);
+        panelloading.add(lcvume);
         loading.add(panelloading);
         jFrame = new JFrame();
-
+        jFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         jFrame.setTitle("Java Swing Visual Code");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setSize(800, 600);
+
         jFrame.setLayout(new BorderLayout());
 
         // Creating navigation panel
@@ -122,7 +125,6 @@ public class Main {
                         System.out.println("qos: " + message.getQos());
                         String info = new String(message.getPayload());
                         ObjectMapper objectMapper = new ObjectMapper();
-
                         List<Xmichqner> list =  objectMapper.readValue(info, new TypeReference<List<Xmichqner>>() {});
                         for (int i = 0 ; i < list.size() ; i++){
 
@@ -165,6 +167,7 @@ public class Main {
                                 public void actionPerformed(ActionEvent e) {
 
                                     if (xmichq.isAlcho()){
+                                        loading.setVisible(false);
                                         System.out.println("Alcholi hamar mtnel aplication");
                                     }else {
                                         MqttMessage id = new MqttMessage(xmichq.getDrink_id().getBytes());
