@@ -40,7 +40,7 @@ public class Main {
         loading.setBounds(450,250,500,250);
         loading.setLayout(new BorderLayout());
         JPanel panelloading = new JPanel();
-        ImageIcon loadingIcon = new ImageIcon("C:\\Users\\intech\\IdeaProjects\\Barmen2\\src\\Nkarner\\Spinner-1s-200px.gif");
+        ImageIcon loadingIcon = new ImageIcon("src\\Nkarner\\Spinner-1s-200px.gif");
         JLabel labelLoading = new JLabel(loadingIcon);
         JLabel lcvume = new JLabel("Սպասեք մինչև կլցվի");
         lcvume.setFont(new Font("Arial",Font.ITALIC,30));
@@ -97,6 +97,7 @@ public class Main {
         String clientId = "client";
         String topic = "topic1";
         String topic2 = "topic2";
+        String topic4 = "topic2";
         int subQos = 1;
         int pubQos = 1;
         try {
@@ -115,7 +116,35 @@ public class Main {
 // Set whether to automatically reconnect
             options.setAutomaticReconnect(true);
             client.connect(options);
+            if (client.isConnected()) {
+                client.setCallback(new MqttCallback() {
+                    @Override
+                    public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
+                        String info = new String(mqttMessage.getPayload());
+                        JFrame karlenickpac = new JFrame();
+                        while (info.equals("true")) {
+                            info = new String(mqttMessage.getPayload());
+                            karlenickpac.setBounds(450, 250, 500, 250);
+                            JLabel lcvume = new JLabel("Սպասեք մինչև կլցվի");
+                            lcvume.setFont(new Font("Arial", Font.ITALIC, 30));
+                            karlenickpac.setVisible(true);
+                        }
+                        karlenickpac.setVisible(false);
+                    }
 
+                    @Override
+                    public void connectionLost(Throwable throwable) {
+
+                    }
+
+                    @Override
+                    public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
+
+                    }
+
+                });
+                client.subscribe(topic4, subQos);
+            }
             if (client.isConnected()) {
                 client.setCallback(new MqttCallback() {
                     public void messageArrived(String topic, MqttMessage message) throws Exception {
@@ -138,11 +167,11 @@ public class Main {
                             productBox.setLayout(new BoxLayout(productBox, BoxLayout.PAGE_AXIS));
 
                             JPanel imagepanel = new JPanel();
-                            imagepanel.setPreferredSize(new Dimension(70,200));
+                            imagepanel.setPreferredSize(new Dimension(200,200));
                             imagepanel.setBackground(new Color(188, 250, 183));
 
-                            ImageIcon logoIcon1 = new ImageIcon( "C:\\Users\\intech\\IdeaProjects\\Barmen2\\src\\Nkarner\\" + xmichq.getImg());
-                            Image img = logoIcon1.getImage().getScaledInstance(70, 200, Image.SCALE_AREA_AVERAGING);
+                            ImageIcon logoIcon1 = new ImageIcon( "src\\Nkarner\\" + xmichq.getImg());
+                            Image img = logoIcon1.getImage().getScaledInstance(200, 200, Image.SCALE_AREA_AVERAGING);
 // Create a new ImageIcon with the resized image
                             ImageIcon resizedIcon = new ImageIcon(img);
 // Create a JLabel with the resized image
