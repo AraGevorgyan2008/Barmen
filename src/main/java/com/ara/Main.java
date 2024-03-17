@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 
+import static java.awt.Color.white;
 import static java.awt.SystemColor.info;
 
 public class Main {
@@ -95,9 +96,9 @@ public class Main {
 
         String broker = "tcp://soldier.cloudmqtt.com:12147";
         String clientId = "client";
-        String topic = "topic1";
+        String topic1 = "topic1";
         String topic2 = "topic2";
-        String topic4 = "topic2";
+        String topic4 = "topic4";
         int subQos = 1;
         int pubQos = 1;
         try {
@@ -116,45 +117,44 @@ public class Main {
 // Set whether to automatically reconnect
             options.setAutomaticReconnect(true);
             client.connect(options);
-            if (client.isConnected()) {
-                client.setCallback(new MqttCallback() {
-                    @Override
-                    public void messageArrived(String s, MqttMessage mqttMessage) throws Exception {
-                        String info = new String(mqttMessage.getPayload());
-                        JFrame karlenickpac = new JFrame();
-                        while (info.equals("true")) {
-                            info = new String(mqttMessage.getPayload());
-                            karlenickpac.setBounds(450, 250, 500, 250);
-                            JLabel lcvume = new JLabel("Սպասեք մինչև կլցվի");
-                            lcvume.setFont(new Font("Arial", Font.ITALIC, 30));
-                            karlenickpac.setVisible(true);
-                        }
-                        karlenickpac.setVisible(false);
-                    }
 
-                    @Override
-                    public void connectionLost(Throwable throwable) {
 
-                    }
 
-                    @Override
-                    public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
 
-                    }
-
-                });
-                client.subscribe(topic4, subQos);
-            }
             if (client.isConnected()) {
                 client.setCallback(new MqttCallback() {
                     public void messageArrived(String topic, MqttMessage message) throws Exception {
+                        JFrame karlenickpac = new JFrame();
+                        if(topic.equals(topic4)) {
+                            String info = new String(message.getPayload());
+                                if (info.equals("True")) {
+                                    info = new String(message.getPayload());
+                                    karlenickpac.setBounds(450, 250, 500, 250);
+                                    JPanel panel = new JPanel();
+                                    JLabel lcvume = new JLabel("Սպասեք մինչև կլցվի");
+                                    lcvume.setFont(new Font("Arial", Font.ITALIC, 30));
+                                    panel.add(lcvume);
+                                    karlenickpac.add(panel);
+                                    karlenickpac.setVisible(true);
+                                    if (info.equals("False")) {
+                                        System.out.println(1);
+                                        karlenickpac.setVisible(false);
+                                    }
+                                }
+                            if (info.equals("False")) {
+                                System.out.println(1);
+                                    karlenickpac.setVisible(false);
+                            }
+                        }
+
+
                         a = new JPanel();
                         a.setBackground(new Color(188, 250, 183));
                         System.out.println("topic: " + topic);
                         System.out.println("qos: " + message.getQos());
-                        String info = new String(message.getPayload());
+                        String info1 = new String(message.getPayload());
                         ObjectMapper objectMapper = new ObjectMapper();
-                        List<Xmichqner> list =  objectMapper.readValue(info, new TypeReference<List<Xmichqner>>() {});
+                        List<Xmichqner> list =  objectMapper.readValue(info1, new TypeReference<List<Xmichqner>>() {});
                         for (int i = 0 ; i < list.size() ; i++){
 
                             Xmichqner xmichq = list.get(i);
@@ -229,7 +229,8 @@ public class Main {
                     }
                 });
 
-                client.subscribe(topic, subQos);
+                client.subscribe(topic1, subQos);
+                client.subscribe(topic4, 0);
             }
 
 
