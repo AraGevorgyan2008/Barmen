@@ -41,7 +41,7 @@ public class Main {
         loading.setBounds(450,250,500,250);
         loading.setLayout(new BorderLayout());
         JPanel panelloading = new JPanel();
-        ImageIcon loadingIcon = new ImageIcon("src\\Nkarner\\Spinner-1s-200px.gif");
+        ImageIcon loadingIcon = new ImageIcon("src\\Nkarner\\loading-thinking.gif");
         JLabel labelLoading = new JLabel(loadingIcon);
         JLabel lcvume = new JLabel("Սպասեք մինչև կլցվի");
         lcvume.setFont(new Font("Arial",Font.ITALIC,30));
@@ -124,7 +124,7 @@ public class Main {
             if (client.isConnected()) {
                 client.setCallback(new MqttCallback() {
                     public void messageArrived(String topic, MqttMessage message) throws Exception {
-                        JFrame karlenickpac = new JFrame();
+                 /*       JFrame karlenickpac = new JFrame();
                         if(topic.equals(topic4)) {
                             String info = new String(message.getPayload());
                                 if (info.equals("True")) {
@@ -136,16 +136,12 @@ public class Main {
                                     panel.add(lcvume);
                                     karlenickpac.add(panel);
                                     karlenickpac.setVisible(true);
-                                    if (info.equals("False")) {
-                                        System.out.println(1);
-                                        karlenickpac.setVisible(false);
-                                    }
                                 }
                             if (info.equals("False")) {
                                 System.out.println(1);
                                     karlenickpac.setVisible(false);
                             }
-                        }
+                        }*/
 
 
                         a = new JPanel();
@@ -200,6 +196,7 @@ public class Main {
                                         System.out.println("Alcholi hamar mtnel aplication");
                                     }else {
                                         MqttMessage id = new MqttMessage(xmichq.getDrink_id().getBytes());
+                                        id.setQos(0);
                                         client.publish(topic2,id);
                                         loading.setVisible(true);
                                     }
@@ -230,7 +227,8 @@ public class Main {
                 });
 
                 client.subscribe(topic1, subQos);
-                client.subscribe(topic4, 0);
+
+                /*client.subscribe(topic4, 0);*/
             }
 
 
