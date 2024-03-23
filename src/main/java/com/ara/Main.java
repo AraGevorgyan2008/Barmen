@@ -29,8 +29,10 @@ public class Main {
     /*    private static JPanel contentPanel2 ;
         private static JPanel contentPanel3 ;
         private static JPanel contentPanel4 ;*/
-    public static void Mqtt(List<Xmichqner> list){
-
+    public static ImageIcon resizeImageIcon(ImageIcon icon, int width, int height) {
+        Image image = icon.getImage(); // Get the Image from ImageIcon
+        Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_DEFAULT); // Scale the image
+        return new ImageIcon(scaledImage); // Return a new ImageIcon with the scaled image
     }
     @SneakyThrows
     public static void JavaSwingVisualCode() {
@@ -42,7 +44,8 @@ public class Main {
         loading.setLayout(new BorderLayout());
         JPanel panelloading = new JPanel();
         ImageIcon loadingIcon = new ImageIcon("src\\Nkarner\\loading-thinking.gif");
-        JLabel labelLoading = new JLabel(loadingIcon);
+        ImageIcon loadingicon = resizeImageIcon(loadingIcon,200,200);
+        JLabel labelLoading = new JLabel(loadingicon);
         JLabel lcvume = new JLabel("Սպասեք մինչև կլցվի");
         lcvume.setFont(new Font("Arial",Font.ITALIC,30));
 
@@ -99,6 +102,7 @@ public class Main {
         String topic1 = "topic1";
         String topic2 = "topic2";
         String topic4 = "topic4";
+        String topic5 = "topic5";
         int subQos = 1;
         int pubQos = 1;
         try {
@@ -124,7 +128,13 @@ public class Main {
             if (client.isConnected()) {
                 client.setCallback(new MqttCallback() {
                     public void messageArrived(String topic, MqttMessage message) throws Exception {
-                 /*       JFrame karlenickpac = new JFrame();
+                        JFrame karlenickpac = new JFrame();
+                        if (topic.equals(topic5)){
+                            String info = new String(message.getPayload());
+                            if (info.equals("False")) {
+                                karlenickpac.setVisible(false);
+                            }
+                        }
                         if(topic.equals(topic4)) {
                             String info = new String(message.getPayload());
                                 if (info.equals("True")) {
@@ -136,13 +146,9 @@ public class Main {
                                     panel.add(lcvume);
                                     karlenickpac.add(panel);
                                     karlenickpac.setVisible(true);
-                                }
-                            if (info.equals("False")) {
-                                System.out.println(1);
-                                    karlenickpac.setVisible(false);
-                            }
-                        }*/
 
+                                }
+                        }
 
                         a = new JPanel();
                         a.setBackground(new Color(188, 250, 183));
@@ -227,8 +233,8 @@ public class Main {
                 });
 
                 client.subscribe(topic1, subQos);
-
-                /*client.subscribe(topic4, 0);*/
+                client.subscribe(topic4, 0);
+                client.subscribe(topic5, 0);
             }
 
 
