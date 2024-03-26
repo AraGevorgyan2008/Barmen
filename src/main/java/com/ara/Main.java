@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import javafx.scene.image.ImageView;
 import lombok.SneakyThrows;
 import org.eclipse.paho.client.mqttv3.*;
+import org.ietf.jgss.GSSName;
 
 import javax.swing.*;
 import java.awt.*;
@@ -37,7 +38,7 @@ public class Main {
     }
     @SneakyThrows
     public static void JavaSwingVisualCode() {
-
+// loading jFrame
         JFrame loading = new JFrame("Loading...");
         loading.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loading.setUndecorated(true);
@@ -53,6 +54,29 @@ public class Main {
         panelloading.add(labelLoading);
         panelloading.add(lcvume);
         loading.add(panelloading);
+        ////////////////////////////////////
+
+        // gna Appication
+        JFrame gnaAppication = new JFrame("Loading...");
+        gnaAppication.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        gnaAppication.setBounds(350,250,730,130);
+        gnaAppication.setLayout(new BorderLayout());
+        JPanel panellgna = new JPanel();
+
+
+        /*ImageIcon loadingIcon = new ImageIcon("src\\Nkarner\\loading-thinking.gif");
+        ImageIcon loadingicon = resizeImageIcon(loadingIcon,200,200);
+        JLabel labelLoading = new JLabel(loadingicon);*/
+        JLabel gna = new JLabel("Ալկոհոլ կարելի է պատվիրել միայն Appication-ով");
+        gna.setFont(new Font("Arial",Font.ITALIC,30));
+        JButton ok = new JButton("OK");
+        ok.setFont(new Font("Arial",Font.ITALIC,30));
+        panellgna.add(gna);
+        panellgna.add(ok);
+        gnaAppication.add(panellgna);
+
+        ////////////////////////////
         jFrame = new JFrame();
         jFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         jFrame.setTitle("Java Swing Visual Code");
@@ -62,37 +86,12 @@ public class Main {
 
         // Creating navigation panel
         JPanel navPanel = new JPanel();
-        navPanel.setPreferredSize(new Dimension(800, 141));
-        navPanel.setBackground(new Color(188, 250, 183));
-        navPanel.setLayout(new BoxLayout(navPanel, BoxLayout.Y_AXIS));
 
-        JLabel pText = new JLabel("Armath");
-        pText.setForeground(Color.RED);
-        pText.setAlignmentX(Component.CENTER_ALIGNMENT);
-        navPanel.add(pText);
+        navPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 100, 110));
+        navPanel.setBackground(new Color(80, 250, 225));
 
-        JLabel hText = new JLabel("Erevan");
-        hText.setForeground(Color.BLACK);
-        hText.setAlignmentX(Component.CENTER_ALIGNMENT);
-        navPanel.add(hText);
 
-        JPanel logSortPanel = new JPanel();
-        logSortPanel.setBackground(new Color(188, 250, 183));
-        logSortPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
 
-        JButton toggleMenuButton = new JButton("Toggle Menu");
-        toggleMenuButton.setPreferredSize(new Dimension(100, 40)); // Set preferred size as per your requirement
-        logSortPanel.add(toggleMenuButton);
-
-        JLabel drinkMixRLabel = new JLabel("DrinkMixR");
-        drinkMixRLabel.setForeground(Color.BLACK);
-        logSortPanel.add(drinkMixRLabel);
-
-        ImageIcon logoIcon = new ImageIcon("") ;
-        JLabel logoLabel = new JLabel(logoIcon);
-        logSortPanel.add(logoLabel);
-
-        navPanel.add(logSortPanel);
 
         karlenickpac = new JFrame();
 
@@ -101,7 +100,7 @@ public class Main {
         String broker = "tcp://soldier.cloudmqtt.com:12147";
         String clientId = "client";
         String topic1 = "topic1";
-        String topic4 = "topic4";
+        String topic6 = "topic6";
         String topic5 = "topic5";
         int subQos = 1;
         int pubQos = 1;
@@ -129,8 +128,7 @@ public class Main {
                 client.setCallback(new MqttCallback() {
                     public void messageArrived(String topic, MqttMessage message) throws Exception {
 
-                        if(topic.equals(topic4)) {
-
+                        if(topic.equals(topic6)) {
                             karlenickpac.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                             karlenickpac.setBounds(450, 250, 500, 250);
                             JPanel panel = new JPanel();
@@ -140,89 +138,100 @@ public class Main {
                             panel.add(lcvume);
                             karlenickpac.add(panel);
                             String info = new String(message.getPayload());
-                                if (info.equals("True")) {
-                                    System.out.println(5);
-                                    karlenickpac.setVisible(true);
-                                }
+                            if (info.equals("True")) {
+                                System.out.println(5);
+                                karlenickpac.setVisible(true);
+                            }
                             else {
                                 System.out.println(1);
                                 karlenickpac.setVisible(false);
-                                    System.out.println(2);
+                                System.out.println(2);
                             }
                         }
-if (topic.equals(topic1)) {
-    a = new JPanel();
-    a.setBackground(new Color(188, 250, 183));
-    System.out.println("topic: " + topic);
-    System.out.println("qos: " + message.getQos());
-    String info1 = new String(message.getPayload());
-    ObjectMapper objectMapper = new ObjectMapper();
-    List<Xmichqner> list = objectMapper.readValue(info1, new TypeReference<List<Xmichqner>>() {
-    });
-    for (int i = 0; i < list.size(); i++) {
+                        if (topic.equals(topic1)) {
+                            a = new JPanel();
+                            a.setPreferredSize(new Dimension(1200,650));
+                            a.setBackground(new Color(80, 250, 225));
+                            System.out.println("topic: " + topic);
+                            System.out.println("qos: " + message.getQos());
+                            String info1 = new String(message.getPayload());
+                            ObjectMapper objectMapper = new ObjectMapper();
+                            List<Xmichqner> list = objectMapper.readValue(info1, new TypeReference<List<Xmichqner>>() {
+                            });
+                            for (int i = 0; i < list.size(); i++) {
 
-        Xmichqner xmichq = list.get(i);
-        contentPanel1 = new JPanel();
-        contentPanel1.setLayout(new FlowLayout(FlowLayout.LEADING, 0, 0));
-        contentPanel1.setBackground(new Color(188, 250, 183));
-        JPanel productBox = new JPanel();
-        productBox.setPreferredSize(new Dimension(130, 300));
-        productBox.setBackground(new Color(188, 250, 183));
-        productBox.setLayout(new BoxLayout(productBox, BoxLayout.PAGE_AXIS));
+                                Xmichqner xmichq = list.get(i);
+                                contentPanel1 = new JPanel();
 
-        JPanel imagepanel = new JPanel();
-        imagepanel.setPreferredSize(new Dimension(200, 200));
-        imagepanel.setBackground(new Color(188, 250, 183));
+                                JPanel productBox = new JPanel();
+                                productBox.setPreferredSize(new Dimension(150, 290));
+                                productBox.setBackground(new Color(70, 224, 205));
+                                productBox.setLayout(new BoxLayout(productBox, BoxLayout.PAGE_AXIS));
 
-        ImageIcon logoIcon1 = new ImageIcon("src\\Nkarner\\" + xmichq.getImg());
-        Image img = logoIcon1.getImage().getScaledInstance(200, 200, Image.SCALE_AREA_AVERAGING);
+                                JPanel imagepanel = new JPanel();
+                                imagepanel.setPreferredSize(new Dimension(100, 100));
+                                imagepanel.setBackground(new Color(188, 250, 183));
+
+                                ImageIcon logoIcon1 = new ImageIcon("src\\Nkarner\\" + xmichq.getImg());
+                                Image img = logoIcon1.getImage().getScaledInstance(200, 215, Image.SCALE_FAST);
 // Create a new ImageIcon with the resized image
-        ImageIcon resizedIcon = new ImageIcon(img);
+                                ImageIcon resizedIcon = new ImageIcon(img);
 // Create a JLabel with the resized image
-        JLabel image1 = new JLabel(resizedIcon);
+                                JLabel image1 = new JLabel(resizedIcon);
 
-        imagepanel.add(image1);
+                                imagepanel.add(image1);
 
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 1, 1));
-        buttonPanel.setBackground(new Color(188, 250, 183));
-        JButton buyButton = new JButton("Buy");
-        JLabel name = new JLabel(xmichq.getName());
-        name.setBackground(Color.BLACK);
-        JLabel price = new JLabel(String.valueOf(xmichq.getPrice()));
-        price.setBackground(Color.BLACK);
-        JLabel description = new JLabel(xmichq.getDescription());
-        description.setBackground(Color.BLACK);
-        buttonPanel.add(Box.createHorizontalGlue());
+                                JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
+                                buttonPanel.setPreferredSize(new Dimension(20, 20));
+                                buttonPanel.setBackground(new Color(8, 2, 183));
+                                JButton buyButton = new JButton("Buy");
+                                JLabel name = new JLabel(xmichq.getName());
+                                name.setBackground(Color.BLACK);
 
-        buyButton.addActionListener(new ActionListener() {
-            @SneakyThrows
-            @Override
-            public void actionPerformed(ActionEvent e) {
+                                JLabel price = new JLabel(String.valueOf(xmichq.getPrice()));
+                                price.setBackground(Color.BLACK);
+                                JLabel description = new JLabel(xmichq.getDescription());
+                                description.setBackground(Color.BLACK);
+                                buttonPanel.add(Box.createHorizontalGlue());
 
-                if (xmichq.isAlcho()) {
-                    loading.setVisible(false);
-                    System.out.println("Alcholi hamar mtnel aplication");
-                } else {
-                    MqttMessage id = new MqttMessage(xmichq.getDrink_id().getBytes());
-                    id.setQos(0);
-                    client.publish(topic5, id);
-                    loading.setVisible(true);
-                }
-            }
-        });
-        buttonPanel.add(buyButton);
-        productBox.add(imagepanel);
-        productBox.add(name);
-        productBox.add(price);
-        productBox.add(description);
-        productBox.add(buttonPanel);
+                                buyButton.addActionListener(new ActionListener() {
+                                    @SneakyThrows
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
 
-        contentPanel1.add(productBox);
+                                        if (xmichq.isAlcho()) {
 
-        a.add(contentPanel1);
-        navPanel.add(a);
-    }
-}
+                                            gnaAppication.setVisible(true);
+                                            ok.addActionListener(new ActionListener() {
+                                                @Override
+                                                public void actionPerformed(ActionEvent e) {
+                                                    gnaAppication.setVisible(false);
+                                                }
+                                            });
+
+
+                                        } else {
+                                            MqttMessage id = new MqttMessage(xmichq.getDrink_id().getBytes());
+                                            id.setQos(0);
+                                            client.publish(topic5, id);
+                                            loading.setVisible(true);
+                                        }
+                                    }
+                                });
+                                productBox.add(imagepanel);
+                                productBox.add(name);
+                                productBox.add(price);
+                                productBox.add(description);
+                                productBox.add(buyButton);
+
+                                a.add(productBox);
+
+                                /*a.add(contentPanel1);*/
+                                navPanel.add(a);
+                            }
+                            jFrame.revalidate(); // Refresh layout
+                            jFrame.repaint();
+                        }
                     }
 
                     public void connectionLost(Throwable cause) {
@@ -235,7 +244,7 @@ if (topic.equals(topic1)) {
                 });
 
                 client.subscribe(topic1, subQos);
-                client.subscribe(topic4, 0);
+                client.subscribe(topic6, 0);
                 client.subscribe(topic5, 0);
             }
 
@@ -256,10 +265,6 @@ if (topic.equals(topic1)) {
 
 
         /*Xmichqner xmichq = gson.fromJson(in.readLine(), Xmichqner.class);*/
-
-
-
-
 
 
 
