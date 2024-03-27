@@ -86,16 +86,13 @@ public class Main {
 
         // Creating navigation panel
         JPanel navPanel = new JPanel();
-
         navPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 100, 110));
-        navPanel.setBackground(new Color(80, 250, 225));
+        navPanel.setBackground(new Color(80, 225, 225));
 
 
 
 
         karlenickpac = new JFrame();
-
-
 
         String broker = "tcp://soldier.cloudmqtt.com:12147";
         String clientId = "client";
@@ -158,6 +155,7 @@ public class Main {
                             ObjectMapper objectMapper = new ObjectMapper();
                             List<Xmichqner> list = objectMapper.readValue(info1, new TypeReference<List<Xmichqner>>() {
                             });
+
                             for (int i = 0; i < list.size(); i++) {
 
                                 Xmichqner xmichq = list.get(i);
@@ -181,9 +179,7 @@ public class Main {
 
                                 imagepanel.add(image1);
 
-                                JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 0, 0));
-                                buttonPanel.setPreferredSize(new Dimension(20, 20));
-                                buttonPanel.setBackground(new Color(8, 2, 183));
+
                                 JButton buyButton = new JButton("Buy");
                                 JLabel name = new JLabel(xmichq.getName());
                                 name.setBackground(Color.BLACK);
@@ -192,7 +188,7 @@ public class Main {
                                 price.setBackground(Color.BLACK);
                                 JLabel description = new JLabel(xmichq.getDescription());
                                 description.setBackground(Color.BLACK);
-                                buttonPanel.add(Box.createHorizontalGlue());
+
 
                                 buyButton.addActionListener(new ActionListener() {
                                     @SneakyThrows
