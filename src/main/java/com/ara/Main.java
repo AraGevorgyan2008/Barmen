@@ -6,7 +6,8 @@ import javafx.scene.image.ImageView;
 import lombok.SneakyThrows;
 import org.eclipse.paho.client.mqttv3.*;
 import org.ietf.jgss.GSSName;
-
+import javax.swing.border.Border;
+import java.awt.geom.RoundRectangle2D;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -81,16 +82,21 @@ public class Main {
         jFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         jFrame.setTitle("Java Swing Visual Code");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         jFrame.setLayout(new BorderLayout());
 
         // Creating navigation panel
         JPanel navPanel = new JPanel();
-        navPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 100, 110));
-        navPanel.setBackground(new Color(80, 225, 225));
+        navPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 60, 10));
+        navPanel.setBackground(new Color(165, 210, 104));
 
 
-
+       JPanel imagepanel1 = new JPanel();
+        imagepanel1.setPreferredSize(new Dimension(100, 100));
+        imagepanel1.setBackground(new Color(0, 210, 104));
+        JLabel text = new JLabel("DrinkMixer");
+         text.setFont(new Font("Arial",Font.ITALIC,70));
+        text.setAlignmentX(Component.CENTER_ALIGNMENT);
+         imagepanel1.add(text);
 
         karlenickpac = new JFrame();
 
@@ -148,7 +154,7 @@ public class Main {
                         if (topic.equals(topic1)) {
                             a = new JPanel();
                             a.setPreferredSize(new Dimension(1200,650));
-                            a.setBackground(new Color(80, 250, 225));
+                            a.setBackground(new Color(165, 210, 104));
                             System.out.println("topic: " + topic);
                             System.out.println("qos: " + message.getQos());
                             String info1 = new String(message.getPayload());
@@ -162,8 +168,29 @@ public class Main {
                                 contentPanel1 = new JPanel();
 
                                 JPanel productBox = new JPanel();
+                                Border roundedBorder = new Border() {
+                                    @Override
+                                    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+                                        Graphics2D g2 = (Graphics2D) g.create();
+                                        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                                        float arc = 20; // Adjust the arc value for the roundness of corners
+                                        g2.draw(new RoundRectangle2D.Double(x, y, width - 1, height - 1, arc, arc));
+                                        g2.dispose();
+                                    }
+
+                                    @Override
+                                    public Insets getBorderInsets(Component c) {
+                                        return new Insets(4, 4, 4, 4); // Adjust as needed
+                                    }
+
+                                    @Override
+                                    public boolean isBorderOpaque() {
+                                        return false;
+                                    }
+                                };
+                                productBox.setBorder(roundedBorder);
                                 productBox.setPreferredSize(new Dimension(150, 290));
-                                productBox.setBackground(new Color(70, 224, 205));
+                                productBox.setBackground(new Color(195, 218, 152));
                                 productBox.setLayout(new BoxLayout(productBox, BoxLayout.PAGE_AXIS));
 
                                 JPanel imagepanel = new JPanel();
@@ -181,11 +208,19 @@ public class Main {
 
 
                                 JButton buyButton = new JButton("Buy");
+                                buyButton.setFont(new Font("Arial",Font.PLAIN,14));
+
+                                buyButton.setBorder(new RoundedRectangleBorder(10)); // Adjust the arc value for roundness
+                                buyButton.setForeground(Color.BLACK);
+
+
                                 JLabel name = new JLabel(xmichq.getName());
+                                name.setFont(new Font("Arial",Font.ITALIC,17));
                                 name.setBackground(Color.BLACK);
 
                                 JLabel price = new JLabel(String.valueOf(xmichq.getPrice()));
                                 price.setBackground(Color.BLACK);
+                                price.setFont(new Font("Arial",Font.ITALIC,17));
                                 JLabel description = new JLabel(xmichq.getDescription());
                                 description.setBackground(Color.BLACK);
 
@@ -220,6 +255,12 @@ public class Main {
                                 productBox.add(description);
                                 productBox.add(buyButton);
 
+                                JPanel rigidArea = new JPanel();
+                                rigidArea.setPreferredSize(new Dimension(60, 0)); // Adjust the height as needed
+                                rigidArea.setOpaque(false); // Make it transparent
+
+                                // Add rigid area to create spacing between productBox components
+                                a.add(rigidArea);
                                 a.add(productBox);
 
                                 /*a.add(contentPanel1);*/
@@ -264,13 +305,42 @@ public class Main {
 
 
 
-        jFrame.add(navPanel);
 
+
+        jFrame.add(imagepanel1, BorderLayout.NORTH);
+// Add navPanel to the CENTER position of jFrame
+        jFrame.add(navPanel, BorderLayout.CENTER);
         jFrame.setVisible(true);
 
     }
+    static class RoundedRectangleBorder implements Border {
+        private final int arc;
 
+        public RoundedRectangleBorder(int arc) {
+            this.arc = arc;
+        }
+
+        @Override
+        public Insets getBorderInsets(Component c) {
+            return new Insets(4, 8, 4, 8); // Adjust as needed
+        }
+
+        @Override
+        public boolean isBorderOpaque() {
+            return false;
+        }
+
+        @Override
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setColor(c.getForeground());
+            g2.drawRoundRect(x, y, width - 1, height - 1, arc, arc);
+            g2.dispose();
+        }
+    }
     public static void main(String[] args) {
         JavaSwingVisualCode();
     }
+
 }
