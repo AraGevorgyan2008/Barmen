@@ -92,11 +92,13 @@ public class Main {
 
        JPanel imagepanel1 = new JPanel();
         imagepanel1.setPreferredSize(new Dimension(100, 100));
-        imagepanel1.setBackground(new Color(0, 210, 104));
+        imagepanel1.setBackground(new Color(165, 210, 104));
         JLabel text = new JLabel("DrinkMixer");
-         text.setFont(new Font("Arial",Font.ITALIC,70));
+        Font font = new Font("Georgia",Font.ITALIC,70);
+         text.setFont(font);
         text.setAlignmentX(Component.CENTER_ALIGNMENT);
          imagepanel1.add(text);
+        navPanel.setBackground(new Color(165, 210, 104));
 
         karlenickpac = new JFrame();
 
