@@ -87,19 +87,19 @@ public class Main {
         // Creating navigation panel
         JPanel navPanel = new JPanel();
         navPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 60, 10));
-        navPanel.setBackground(new Color(165, 210, 104));
+        navPanel.setBackground(new Color(149, 185, 114));
 
 
        JPanel imagepanel1 = new JPanel();
         imagepanel1.setPreferredSize(new Dimension(100, 100));
-        imagepanel1.setBackground(new Color(170, 231, 99));
+        imagepanel1.setBackground(new Color(109, 143, 64));
         JLabel text = new JLabel("DrinkMixer");
-        text.setForeground(Color.GREEN);
+        text.setForeground(new Color(178, 203, 159));
         Font font = new Font("Georgia",Font.ITALIC,70);
          text.setFont(font);
         text.setAlignmentX(Component.CENTER_ALIGNMENT);
          imagepanel1.add(text);
-        navPanel.setBackground(new Color(165, 210, 104));
+        navPanel.setBackground(new Color(179, 224, 123));
 
         karlenickpac = new JFrame();
 
