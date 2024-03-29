@@ -92,8 +92,9 @@ public class Main {
 
        JPanel imagepanel1 = new JPanel();
         imagepanel1.setPreferredSize(new Dimension(100, 100));
-        imagepanel1.setBackground(new Color(165, 210, 104));
+        imagepanel1.setBackground(new Color(170, 231, 99));
         JLabel text = new JLabel("DrinkMixer");
+        text.setForeground(Color.GREEN);
         Font font = new Font("Georgia",Font.ITALIC,70);
          text.setFont(font);
         text.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -144,13 +145,10 @@ public class Main {
                             karlenickpac.add(panel);
                             String info = new String(message.getPayload());
                             if (info.equals("True")) {
-                                System.out.println(5);
                                 karlenickpac.setVisible(true);
                             }
                             else {
-                                System.out.println(1);
                                 karlenickpac.setVisible(false);
-                                System.out.println(2);
                             }
                         }
                         if (topic.equals(topic1)) {
@@ -169,7 +167,7 @@ public class Main {
                                 Xmichqner xmichq = list.get(i);
                                 contentPanel1 = new JPanel();
 
-                                JPanel productBox = new JPanel();
+                                JPanel productBox = new JPanel(new BorderLayout());
                                 Border roundedBorder = new Border() {
                                     @Override
                                     public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
@@ -216,13 +214,17 @@ public class Main {
                                 buyButton.setForeground(Color.BLACK);
 
 
+
                                 JLabel name = new JLabel(xmichq.getName());
                                 name.setFont(new Font("Arial",Font.ITALIC,17));
                                 name.setBackground(Color.BLACK);
 
+
                                 JLabel price = new JLabel(String.valueOf(xmichq.getPrice()));
                                 price.setBackground(Color.BLACK);
                                 price.setFont(new Font("Arial",Font.ITALIC,17));
+
+
                                 JLabel description = new JLabel(xmichq.getDescription());
                                 description.setBackground(Color.BLACK);
 
