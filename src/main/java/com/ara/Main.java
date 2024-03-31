@@ -19,6 +19,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 
 import static java.awt.Color.white;
@@ -40,6 +41,7 @@ public class Main {
     @SneakyThrows
     public static void JavaSwingVisualCode() {
 // loading jFrame
+        Gson json = new Gson();
         JFrame loading = new JFrame("Loading...");
         loading.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loading.setUndecorated(true);
@@ -89,7 +91,7 @@ public class Main {
         navPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 60, 10));
         navPanel.setBackground(new Color(149, 185, 114));
 
-
+                 Random random = new Random(10);
        JPanel imagepanel1 = new JPanel();
         imagepanel1.setPreferredSize(new Dimension(100, 100));
         imagepanel1.setBackground(new Color(109, 143, 64));
@@ -247,7 +249,14 @@ public class Main {
 
 
                                         } else {
-                                            MqttMessage id = new MqttMessage(xmichq.getDrink_id().getBytes());
+
+                                            int i1 = random.nextInt();
+                                            if (i1 < 0){
+                                                i1 = -1 * i1 ;
+                                            }
+                                            String json1 = json.toJson(new XmichqId(xmichq.getDrink_id(), String.valueOf(i1), ""));
+                                            System.out.println(json1);
+                                            MqttMessage id = new MqttMessage(json1.getBytes());
                                             id.setQos(0);
                                             client.publish(topic2, id);
                                             loading.setVisible(true);
