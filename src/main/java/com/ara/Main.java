@@ -107,6 +107,7 @@ public class Main {
         String clientId = "client";
         String topic1 = "topic1";
         String topic6 = "topic6";
+        String topic2 = "topic2";
         String topic5 = "topic5";
         int subQos = 1;
         int pubQos = 1;
@@ -248,7 +249,7 @@ public class Main {
                                         } else {
                                             MqttMessage id = new MqttMessage(xmichq.getDrink_id().getBytes());
                                             id.setQos(0);
-                                            client.publish(topic5, id);
+                                            client.publish(topic2, id);
                                             loading.setVisible(true);
                                         }
                                     }
