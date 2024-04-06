@@ -48,7 +48,7 @@ public class Main {
         loading.setBounds(450,250,500,250);
         loading.setLayout(new BorderLayout());
         JPanel panelloading = new JPanel();
-        ImageIcon loadingIcon = new ImageIcon("src\\Nkarner\\loading-thinking.gif");
+        ImageIcon loadingIcon = new ImageIcon("src\\Nkarner\\1a.gif");
         ImageIcon loadingicon = resizeImageIcon(loadingIcon,200,200);
         JLabel labelLoading = new JLabel(loadingicon);
         JLabel lcvume = new JLabel("Սպասեք մինչև կլցվի");
@@ -152,6 +152,12 @@ public class Main {
                             }
                             else {
                                 karlenickpac.setVisible(false);
+                            }
+                        }
+                        if(topic.equals(topic2)){
+                            String info = new String(message.getPayload());
+                            if (info.equals("False")){
+                                loading.setVisible(false);
                             }
                         }
                         if (topic.equals(topic1)) {
@@ -295,6 +301,7 @@ public class Main {
                 });
 
                 client.subscribe(topic1, subQos);
+                client.subscribe(topic2, 0);
                 client.subscribe(topic6, 0);
                 client.subscribe(topic5, 0);
             }
