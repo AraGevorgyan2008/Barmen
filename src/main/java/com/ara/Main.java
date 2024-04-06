@@ -160,6 +160,7 @@ public class Main {
                                 loading.setVisible(false);
                             }
                         }
+                        int qq = 0 ;
                         if (topic.equals(topic1)) {
                             a = new JPanel();
                             a.setPreferredSize(new Dimension(1200,650));
