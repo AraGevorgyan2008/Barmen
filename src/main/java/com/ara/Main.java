@@ -27,50 +27,53 @@ import static java.awt.SystemColor.info;
 
 public class Main {
     private static JPanel contentPanel1 ;
+    private static JPanel imagepanel1;
     private static JPanel a ;
     private static JFrame jFrame;
+    private static JFrame gnaAppication;
+    private static JFrame loading;
     private static JFrame karlenickpac;
-    /*    private static JPanel contentPanel2 ;
-        private static JPanel contentPanel3 ;
-        private static JPanel contentPanel4 ;*/
+
     public static ImageIcon resizeImageIcon(ImageIcon icon, int width, int height) {
         Image image = icon.getImage(); // Get the Image from ImageIcon
         Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_DEFAULT); // Scale the image
         return new ImageIcon(scaledImage); // Return a new ImageIcon with the scaled image
     }
-    @SneakyThrows
-    public static void JavaSwingVisualCode() {
-// loading jFrame
-        Gson json = new Gson();
-        JFrame loading = new JFrame("Loading...");
+     static void loading(){
+         loading = new JFrame("Loading...");
         loading.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         loading.setUndecorated(true);
-        loading.setBounds(450,250,500,250);
+        loading.setBounds(450,250,500,260);
+         JPanel panelloading = new JPanel();
+         ImageIcon loadingIcon = new ImageIcon("src\\Nkarner\\1a.gif");
+         ImageIcon loadingicon = resizeImageIcon(loadingIcon,200,200);
+         JLabel labelLoading = new JLabel(loadingicon);
+         JLabel lcvume = new JLabel("Սպասեք մինչև կլցվի");
+         lcvume.setFont(new Font("Arial",Font.ITALIC,30));
+
+         panelloading.add(labelLoading);
+         panelloading.add(lcvume);
         loading.setLayout(new BorderLayout());
-        JPanel panelloading = new JPanel();
-        ImageIcon loadingIcon = new ImageIcon("src\\Nkarner\\1a.gif");
-        ImageIcon loadingicon = resizeImageIcon(loadingIcon,200,200);
-        JLabel labelLoading = new JLabel(loadingicon);
-        JLabel lcvume = new JLabel("Սպասեք մինչև կլցվի");
-        lcvume.setFont(new Font("Arial",Font.ITALIC,30));
-
-        panelloading.add(labelLoading);
-        panelloading.add(lcvume);
-        loading.add(panelloading);
-        ////////////////////////////////////
-
-        // gna Appication
-        JFrame gnaAppication = new JFrame("Loading...");
+         loading.add(panelloading);
+        loading.setVisible(true);
+    }
+    static void imagepanel1(){
+         imagepanel1 = new JPanel();
+        imagepanel1.setPreferredSize(new Dimension(100, 100));
+        imagepanel1.setBackground(new Color(109, 143, 64));
+        JLabel text = new JLabel("DrinkMixer");
+        text.setForeground(new Color(178, 203, 159));
+        Font font = new Font("Georgia",Font.ITALIC,70);
+        text.setFont(font);
+        text.setAlignmentX(Component.CENTER_ALIGNMENT);
+        imagepanel1.add(text);
+    }
+    static void gnaAppication(){
+         gnaAppication = new JFrame("Loading...");
         gnaAppication.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
         gnaAppication.setBounds(350,250,730,130);
         gnaAppication.setLayout(new BorderLayout());
         JPanel panellgna = new JPanel();
-
-
-        /*ImageIcon loadingIcon = new ImageIcon("src\\Nkarner\\loading-thinking.gif");
-        ImageIcon loadingicon = resizeImageIcon(loadingIcon,200,200);
-        JLabel labelLoading = new JLabel(loadingicon);*/
         JLabel gna = new JLabel("Ալկոհոլ կարելի է պատվիրել միայն Appication-ով");
         gna.setFont(new Font("Arial",Font.ITALIC,30));
         JButton ok = new JButton("OK");
@@ -79,7 +82,19 @@ public class Main {
         panellgna.add(ok);
         gnaAppication.add(panellgna);
 
-        ////////////////////////////
+        ok.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gnaAppication.setVisible(false);
+            }
+        });
+        gnaAppication.setVisible(true);
+    }
+    @SneakyThrows
+    public static void JavaSwingVisualCode() {
+// loading jFrame
+        Gson json = new Gson();
+
         jFrame = new JFrame();
         jFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         jFrame.setTitle("Java Swing Visual Code");
@@ -89,19 +104,10 @@ public class Main {
         // Creating navigation panel
         JPanel navPanel = new JPanel();
         navPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 60, 10));
-        navPanel.setBackground(new Color(149, 185, 114));
-
+        navPanel.setBackground(new Color(255, 255, 255));
                  Random random = new Random(10);
-       JPanel imagepanel1 = new JPanel();
-        imagepanel1.setPreferredSize(new Dimension(100, 100));
-        imagepanel1.setBackground(new Color(109, 143, 64));
-        JLabel text = new JLabel("DrinkMixer");
-        text.setForeground(new Color(178, 203, 159));
-        Font font = new Font("Georgia",Font.ITALIC,70);
-         text.setFont(font);
-        text.setAlignmentX(Component.CENTER_ALIGNMENT);
-         imagepanel1.add(text);
-        navPanel.setBackground(new Color(179, 224, 123));
+        imagepanel1();
+
 
         karlenickpac = new JFrame();
 
@@ -131,8 +137,6 @@ public class Main {
             client.connect(options);
 
 
-
-
             if (client.isConnected()) {
                 client.setCallback(new MqttCallback() {
                     public void messageArrived(String topic, MqttMessage message) throws Exception {
@@ -160,7 +164,6 @@ public class Main {
                                 loading.setVisible(false);
                             }
                         }
-                        int qq = 0 ;
                         if (topic.equals(topic1)) {
                             a = new JPanel();
                             a.setPreferredSize(new Dimension(1200,650));
@@ -204,29 +207,17 @@ public class Main {
                                 productBox.setLayout(new BoxLayout(productBox, BoxLayout.PAGE_AXIS));
 
                                 JPanel imagepanel = new JPanel();
-                                imagepanel.setPreferredSize(new Dimension(100, 100));
                                 imagepanel.setBackground(new Color(188, 250, 183));
-
                                 ImageIcon logoIcon1 = new ImageIcon("src\\Nkarner\\" + xmichq.getImg());
-                                Image img = logoIcon1.getImage().getScaledInstance(200, 215, Image.SCALE_FAST);
-// Create a new ImageIcon with the resized image
+                                Image img = logoIcon1.getImage().getScaledInstance(200, 215,Image.SCALE_DEFAULT);
                                 ImageIcon resizedIcon = new ImageIcon(img);
-// Create a JLabel with the resized image
                                 JLabel image1 = new JLabel(resizedIcon);
-
-                                imagepanel.add(image1);
-
-
-                                JButton buyButton = new JButton("Buy");
-                                buyButton.setFont(new Font("Arial",Font.PLAIN,14));
-
-                                buyButton.setBorder(new RoundedRectangleBorder(10)); // Adjust the arc value for roundness
-                                buyButton.setForeground(Color.BLACK);
+                                productBox.add(image1);
 
 
 
                                 JLabel name = new JLabel(xmichq.getName());
-                                name.setFont(new Font("Arial",Font.ITALIC,17));
+                                name.setFont(new Font("Arial",Font.ITALIC,15));
                                 name.setBackground(Color.BLACK);
 
 
@@ -238,25 +229,19 @@ public class Main {
                                 JLabel description = new JLabel(xmichq.getDescription());
                                 description.setBackground(Color.BLACK);
 
-
+                                JButton buyButton = new JButton("Buy");
+                                buyButton.setFont(new Font("Arial",Font.PLAIN,14));
+                                buyButton.setBorder(new RoundedRectangleBorder(10)); // Adjust the arc value for roundness
+                                buyButton.setForeground(Color.BLACK);
                                 buyButton.addActionListener(new ActionListener() {
                                     @SneakyThrows
                                     @Override
                                     public void actionPerformed(ActionEvent e) {
 
                                         if (xmichq.isAlcho()) {
-
-                                            gnaAppication.setVisible(true);
-                                            ok.addActionListener(new ActionListener() {
-                                                @Override
-                                                public void actionPerformed(ActionEvent e) {
-                                                    gnaAppication.setVisible(false);
-                                                }
-                                            });
-
+                                            gnaAppication();
 
                                         } else {
-
                                             int i1 = random.nextInt();
                                             if (i1 < 0){
                                                 i1 = -1 * i1 ;
@@ -266,14 +251,13 @@ public class Main {
                                             MqttMessage id = new MqttMessage(json1.getBytes());
                                             id.setQos(0);
                                             client.publish(topic2, id);
-                                            loading.setVisible(true);
+                                            loading();
                                         }
                                     }
                                 });
-                                productBox.add(imagepanel);
+
                                 productBox.add(name);
                                 productBox.add(price);
-                                productBox.add(description);
                                 productBox.add(buyButton);
 
                                 JPanel rigidArea = new JPanel();
@@ -312,18 +296,6 @@ public class Main {
         } catch (MqttException e) {
             e.printStackTrace();
         }
-
-        // MQtt kodna vereviny
-
-
-/*        ServerSocket serverSocket = new ServerSocket(9999);
-        Socket peer2Socket = serverSocket.accept();*/
-/*        BufferedReader in = new BufferedReader(new InputStreamReader(peer2Socket.getInputStream()));
-        PrintWriter out = new PrintWriter(peer2Socket.getOutputStream(), true);*/
-
-
-
-        /*Xmichqner xmichq = gson.fromJson(in.readLine(), Xmichqner.class);*/
 
 
 
