@@ -29,6 +29,7 @@ public class Main {
     private static JPanel contentPanel1 ;
     private static JPanel imagepanel1;
     private static JPanel a ;
+    private static JFrame WTF;
     private static JFrame jFrame;
     private static JFrame gnaAppication;
     private static JFrame loading;
@@ -57,6 +58,49 @@ public class Main {
          loading.add(panelloading);
         loading.setVisible(true);
     }
+    static void WTF(){
+        WTF = new JFrame();
+        WTF.setBounds(100,50,500,400);
+        WTF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        WTF.setLayout(new BorderLayout());
+        JPanel panel = new JPanel();
+        JLabel Drink1 = new JLabel("Mojito");
+        JTextField JTF_Drink1 = new JTextField(20);
+        JLabel Drink2 = new JLabel("Alcohol");
+        JTextField JTF_Drink2 = new JTextField(20);
+        JLabel Drink3 = new JLabel("Sparkling water");
+        JTextField JTF_Drink3 = new JTextField(20);
+        JLabel Drink4 = new JLabel("Fanta");
+        JTextField JTF_Drink4 = new JTextField(20);
+        JLabel Drink5 = new JLabel("Mango juice");
+        JTextField JTF_Drink5 = new JTextField(20);
+        JLabel Drink6 = new JLabel("Coke");
+        JTextField JTF_Drink6 = new JTextField(20);
+        JLabel Drink7 = new JLabel("Orange");
+        JTextField JTF_Drink7 = new JTextField(20);
+        JLabel Drink8 = new JLabel("Pommegranate juice");
+        JTextField JTF_Drink8 = new JTextField(20);
+
+       panel.add(Drink1);
+       panel.add(JTF_Drink1);
+       panel.add(Drink2);
+       panel.add(JTF_Drink2);
+       panel.add(Drink3);
+       panel.add(JTF_Drink3);
+       panel.add(Drink4);
+       panel.add(JTF_Drink4);
+       panel.add(Drink5);
+       panel.add(JTF_Drink5);
+       panel.add(Drink6);
+       panel.add(JTF_Drink6);
+       panel.add(Drink7);
+       panel.add(JTF_Drink7);
+       panel.add(Drink8);
+       panel.add(JTF_Drink8);
+
+       WTF.add(panel);
+        WTF.setVisible(true);
+    }
     static void imagepanel1(){
          imagepanel1 = new JPanel();
         imagepanel1.setPreferredSize(new Dimension(100, 100));
@@ -66,7 +110,17 @@ public class Main {
         Font font = new Font("Georgia",Font.ITALIC,70);
         text.setFont(font);
         text.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JButton plus = new JButton("+");
+        plus.setFont(new Font("Arial",Font.PLAIN,50));
+        plus.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                WTF();
+            }
+        });
+        imagepanel1.add(plus);
         imagepanel1.add(text);
+
     }
     static void gnaAppication(){
          gnaAppication = new JFrame("Loading...");
