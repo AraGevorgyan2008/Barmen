@@ -12,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
@@ -30,6 +31,7 @@ public class Main {
     private static JPanel imagepanel1;
     private static JPanel a ;
     private static JFrame WTF;
+    private static Color rgb = new Color(255, 255, 255);
     private static JFrame jFrame;
     private static JFrame gnaAppication;
     private static JFrame loading;
@@ -65,21 +67,21 @@ public class Main {
         WTF.setLayout(new BorderLayout());
         JPanel panel = new JPanel();
         JLabel Drink1 = new JLabel("Mojito");
-        JTextField JTF_Drink1 = new JTextField(20);
+        JTextField JTF_Drink1 = new JTextField(38);
         JLabel Drink2 = new JLabel("Alcohol");
-        JTextField JTF_Drink2 = new JTextField(20);
+        JTextField JTF_Drink2 = new JTextField(38);
         JLabel Drink3 = new JLabel("Sparkling water");
-        JTextField JTF_Drink3 = new JTextField(20);
+        JTextField JTF_Drink3 = new JTextField(32);
         JLabel Drink4 = new JLabel("Fanta");
-        JTextField JTF_Drink4 = new JTextField(20);
+        JTextField JTF_Drink4 = new JTextField(38);
         JLabel Drink5 = new JLabel("Mango juice");
-        JTextField JTF_Drink5 = new JTextField(20);
+        JTextField JTF_Drink5 = new JTextField(36);
         JLabel Drink6 = new JLabel("Coke");
-        JTextField JTF_Drink6 = new JTextField(20);
+        JTextField JTF_Drink6 = new JTextField(38);
         JLabel Drink7 = new JLabel("Orange");
-        JTextField JTF_Drink7 = new JTextField(20);
+        JTextField JTF_Drink7 = new JTextField(38);
         JLabel Drink8 = new JLabel("Pommegranate juice");
-        JTextField JTF_Drink8 = new JTextField(20);
+        JTextField JTF_Drink8 = new JTextField(30);
 
        panel.add(Drink1);
        panel.add(JTF_Drink1);
@@ -104,10 +106,10 @@ public class Main {
     static void imagepanel1(){
          imagepanel1 = new JPanel();
         imagepanel1.setPreferredSize(new Dimension(100, 100));
-        imagepanel1.setBackground(new Color(109, 143, 64));
+        imagepanel1.setBackground(rgb);
         JLabel text = new JLabel("DrinkMixer");
-        text.setForeground(new Color(178, 203, 159));
-        Font font = new Font("Georgia",Font.ITALIC,70);
+        text.setForeground(Color.BLACK);
+        Font font = new Font("Garamond",Font.ITALIC,70);//Georgia
         text.setFont(font);
         text.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton plus = new JButton("+");
@@ -158,7 +160,7 @@ public class Main {
         // Creating navigation panel
         JPanel navPanel = new JPanel();
         navPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 60, 10));
-        navPanel.setBackground(new Color(255, 255, 255));
+        navPanel.setBackground(rgb);
                  Random random = new Random(10);
         imagepanel1();
 
@@ -221,7 +223,7 @@ public class Main {
                         if (topic.equals(topic1)) {
                             a = new JPanel();
                             a.setPreferredSize(new Dimension(1200,650));
-                            a.setBackground(new Color(165, 210, 104));
+                            a.setBackground(rgb);
                             System.out.println("topic: " + topic);
                             System.out.println("qos: " + message.getQos());
                             String info1 = new String(message.getPayload());
@@ -255,38 +257,39 @@ public class Main {
                                         return false;
                                     }
                                 };
-                                productBox.setBorder(roundedBorder);
+
                                 productBox.setPreferredSize(new Dimension(150, 290));
-                                productBox.setBackground(new Color(195, 218, 152));
+                                productBox.setBackground(rgb);
                                 productBox.setLayout(new BoxLayout(productBox, BoxLayout.PAGE_AXIS));
 
                                 JPanel imagepanel = new JPanel();
-                                imagepanel.setBackground(new Color(188, 250, 183));
+                                imagepanel.setBackground(rgb);
                                 ImageIcon logoIcon1 = new ImageIcon("src\\Nkarner\\" + xmichq.getImg());
-                                Image img = logoIcon1.getImage().getScaledInstance(200, 215,Image.SCALE_DEFAULT);
+                                Image img = logoIcon1.getImage().getScaledInstance(145, 225,Image.SCALE_FAST);
                                 ImageIcon resizedIcon = new ImageIcon(img);
                                 JLabel image1 = new JLabel(resizedIcon);
+
                                 productBox.add(image1);
 
 
 
                                 JLabel name = new JLabel(xmichq.getName());
-                                name.setFont(new Font("Arial",Font.ITALIC,15));
+                                name.setFont(new Font("Bodoni",Font.ITALIC,16));
                                 name.setBackground(Color.BLACK);
 
 
                                 JLabel price = new JLabel(String.valueOf(xmichq.getPrice()));
                                 price.setBackground(Color.BLACK);
-                                price.setFont(new Font("Arial",Font.ITALIC,17));
+                                price.setFont(new Font("Bodoni",Font.LAYOUT_NO_LIMIT_CONTEXT,17));
 
 
                                 JLabel description = new JLabel(xmichq.getDescription());
                                 description.setBackground(Color.BLACK);
 
                                 JButton buyButton = new JButton("Buy");
-                                buyButton.setFont(new Font("Arial",Font.PLAIN,14));
+                                buyButton.setFont(new Font("Arial",Font.PLAIN,16));
                                 buyButton.setBorder(new RoundedRectangleBorder(10)); // Adjust the arc value for roundness
-                                buyButton.setForeground(Color.BLACK);
+                                buyButton.setBackground(new Color(255, 255, 255));
                                 buyButton.addActionListener(new ActionListener() {
                                     @SneakyThrows
                                     @Override
@@ -310,8 +313,9 @@ public class Main {
                                     }
                                 });
 
-                                productBox.add(name);
+
                                 productBox.add(price);
+                                productBox.add(name);
                                 productBox.add(buyButton);
 
                                 JPanel rigidArea = new JPanel();
