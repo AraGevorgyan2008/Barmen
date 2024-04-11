@@ -19,6 +19,7 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CountDownLatch;
@@ -36,7 +37,85 @@ public class Main {
     private static JFrame gnaAppication;
     private static JFrame loading;
     private static JFrame karlenickpac;
+  static void WTFTEXT(){
+      JPanel panel = new JPanel();
+      JLabel Drink1 = new JLabel("Mojito");
+      JTextField JTF_Drink1 = new JTextField(38);
+      JLabel Drink2 = new JLabel("Alcohol");
+      JTextField JTF_Drink2 = new JTextField(38);
+      JLabel Drink3 = new JLabel("Sparkling water");
+      JTextField JTF_Drink3 = new JTextField(32);
+      JLabel Drink4 = new JLabel("Fanta");
+      JTextField JTF_Drink4 = new JTextField(38);
+      JLabel Drink5 = new JLabel("Mango juice");
+      JTextField JTF_Drink5 = new JTextField(36);
+      JLabel Drink6 = new JLabel("Coke");
+      JTextField JTF_Drink6 = new JTextField(38);
+      JLabel Drink7 = new JLabel("Orange");
+      JTextField JTF_Drink7 = new JTextField(38);
+      JLabel Drink8 = new JLabel("Pommegranate juice");
+      JTextField JTF_Drink8 = new JTextField(30);
 
+      JButton to_order = new JButton("Order");
+      to_order.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              int text1 = 0 ;
+              int text2= 0 ;
+              int text3= 0 ;
+              int text4= 0 ;
+              int text5= 0 ;
+              int text6= 0 ;
+              int text7= 0 ;
+              int text8= 0 ;
+              if (!(JTF_Drink1.getText().equals(""))){
+                  text1 = Integer.valueOf(JTF_Drink1.getText());
+              }
+              if (!(JTF_Drink2.getText().equals(""))){
+              text2 = Integer.parseInt(JTF_Drink2.getText());
+              }
+                  if (!(JTF_Drink3.getText().equals(""))){
+              text3 = Integer.parseInt(JTF_Drink3.getText());
+                  }
+                      if (!(JTF_Drink4.getText().equals(""))){
+              text4 = Integer.parseInt(JTF_Drink4.getText());
+                      }
+                          if (!(JTF_Drink5.getText().equals(""))){
+              text5 = Integer.parseInt(JTF_Drink5.getText());
+                          }
+                              if (!(JTF_Drink6.getText().equals(""))){
+              text6 = Integer.parseInt(JTF_Drink6.getText());
+                              }
+                                  if (!(JTF_Drink7.getText().equals(""))){
+              text7 = Integer.parseInt(JTF_Drink7.getText());
+                                  }
+                                      if (!(JTF_Drink8.getText().equals(""))) {
+                                          text8 = Integer.parseInt(JTF_Drink8.getText());
+                                      }
+              int[] arr = new int[]{text1,text2,text3,text4,text5,text6,text7,text8};
+              System.out.println(Arrays.toString(arr));
+          }
+      });
+
+      panel.add(Drink1);
+      panel.add(JTF_Drink1);
+      panel.add(Drink2);
+      panel.add(JTF_Drink2);
+      panel.add(Drink3);
+      panel.add(JTF_Drink3);
+      panel.add(Drink4);
+      panel.add(JTF_Drink4);
+      panel.add(Drink5);
+      panel.add(JTF_Drink5);
+      panel.add(Drink6);
+      panel.add(JTF_Drink6);
+      panel.add(Drink7);
+      panel.add(JTF_Drink7);
+      panel.add(Drink8);
+      panel.add(JTF_Drink8);
+      panel.add(to_order);
+      WTF.add(panel);
+  }
     public static ImageIcon resizeImageIcon(ImageIcon icon, int width, int height) {
         Image image = icon.getImage(); // Get the Image from ImageIcon
         Image scaledImage = image.getScaledInstance(width, height, Image.SCALE_DEFAULT); // Scale the image
@@ -65,42 +144,7 @@ public class Main {
         WTF.setBounds(100,50,500,400);
         WTF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         WTF.setLayout(new BorderLayout());
-        JPanel panel = new JPanel();
-        JLabel Drink1 = new JLabel("Mojito");
-        JTextField JTF_Drink1 = new JTextField(38);
-        JLabel Drink2 = new JLabel("Alcohol");
-        JTextField JTF_Drink2 = new JTextField(38);
-        JLabel Drink3 = new JLabel("Sparkling water");
-        JTextField JTF_Drink3 = new JTextField(32);
-        JLabel Drink4 = new JLabel("Fanta");
-        JTextField JTF_Drink4 = new JTextField(38);
-        JLabel Drink5 = new JLabel("Mango juice");
-        JTextField JTF_Drink5 = new JTextField(36);
-        JLabel Drink6 = new JLabel("Coke");
-        JTextField JTF_Drink6 = new JTextField(38);
-        JLabel Drink7 = new JLabel("Orange");
-        JTextField JTF_Drink7 = new JTextField(38);
-        JLabel Drink8 = new JLabel("Pommegranate juice");
-        JTextField JTF_Drink8 = new JTextField(30);
-
-       panel.add(Drink1);
-       panel.add(JTF_Drink1);
-       panel.add(Drink2);
-       panel.add(JTF_Drink2);
-       panel.add(Drink3);
-       panel.add(JTF_Drink3);
-       panel.add(Drink4);
-       panel.add(JTF_Drink4);
-       panel.add(Drink5);
-       panel.add(JTF_Drink5);
-       panel.add(Drink6);
-       panel.add(JTF_Drink6);
-       panel.add(Drink7);
-       panel.add(JTF_Drink7);
-       panel.add(Drink8);
-       panel.add(JTF_Drink8);
-
-       WTF.add(panel);
+        WTFTEXT();
         WTF.setVisible(true);
     }
     static void imagepanel1(){
