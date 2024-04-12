@@ -39,24 +39,31 @@ public class Main {
     private static JFrame karlenickpac;
   static void WTFTEXT(){
       JPanel panel = new JPanel();
-      JLabel Drink1 = new JLabel("Mojito");
-      JTextField JTF_Drink1 = new JTextField(38);
-      JLabel Drink2 = new JLabel("Alcohol");
-      JTextField JTF_Drink2 = new JTextField(38);
-      JLabel Drink3 = new JLabel("Sparkling water");
-      JTextField JTF_Drink3 = new JTextField(32);
-      JLabel Drink4 = new JLabel("Fanta");
-      JTextField JTF_Drink4 = new JTextField(38);
-      JLabel Drink5 = new JLabel("Mango juice");
-      JTextField JTF_Drink5 = new JTextField(36);
-      JLabel Drink6 = new JLabel("Coke");
-      JTextField JTF_Drink6 = new JTextField(38);
-      JLabel Drink7 = new JLabel("Orange");
-      JTextField JTF_Drink7 = new JTextField(38);
+      JLabel Drink1 = new JLabel("Mojito            ");
+      JTextField JTF_Drink1 = new JTextField(30);
+      JLabel Drink2 = new JLabel("Alcohol           ");
+      JTextField JTF_Drink2 = new JTextField(30);
+      JLabel Drink3 = new JLabel("Sparkling water   ");
+      JTextField JTF_Drink3 = new JTextField(30);
+      JLabel Drink4 = new JLabel("Fanta             ");
+      JTextField JTF_Drink4 = new JTextField(30);
+      JLabel Drink5 = new JLabel("Mango juice       ");
+      JTextField JTF_Drink5 = new JTextField(30);
+      JLabel Drink6 = new JLabel("Coke             ");
+      JTextField JTF_Drink6 = new JTextField(30);
+      JLabel Drink7 = new JLabel("Orange           ");
+      JTextField JTF_Drink7 = new JTextField(30);
       JLabel Drink8 = new JLabel("Pommegranate juice");
       JTextField JTF_Drink8 = new JTextField(30);
 
       JButton to_order = new JButton("Order");
+      JButton close = new JButton("Close");
+      close.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              WTF.setVisible(false);
+          }
+      });
       to_order.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
@@ -96,7 +103,7 @@ public class Main {
               System.out.println(Arrays.toString(arr));
           }
       });
-
+panel.setBackground(Color.WHITE);
       panel.add(Drink1);
       panel.add(JTF_Drink1);
       panel.add(Drink2);
@@ -114,6 +121,7 @@ public class Main {
       panel.add(Drink8);
       panel.add(JTF_Drink8);
       panel.add(to_order);
+      panel.add(close);
       WTF.add(panel);
   }
     public static ImageIcon resizeImageIcon(ImageIcon icon, int width, int height) {
@@ -141,9 +149,11 @@ public class Main {
     }
     static void WTF(){
         WTF = new JFrame();
-        WTF.setBounds(100,50,500,400);
+        WTF.setBounds(500,130,350,500);
         WTF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         WTF.setLayout(new BorderLayout());
+        WTF.setUndecorated(true);
+        WTF.setShape(new RoundRectangle2D.Double(0, 0, 350, 500, 30, 30)); // Set the shape of the window
         WTFTEXT();
         WTF.setVisible(true);
     }
@@ -151,12 +161,15 @@ public class Main {
          imagepanel1 = new JPanel();
         imagepanel1.setPreferredSize(new Dimension(100, 100));
         imagepanel1.setBackground(rgb);
+        imagepanel1.setLayout(new FlowLayout(FlowLayout.LEFT));
         JLabel text = new JLabel("DrinkMixer");
         text.setForeground(Color.BLACK);
         Font font = new Font("Garamond",Font.ITALIC,70);//Georgia
         text.setFont(font);
         text.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton plus = new JButton("+");
+        plus.setBackground(Color.WHITE);
+        plus.setBorder(new CircularBorder(16));
         plus.setFont(new Font("Arial",Font.PLAIN,50));
         plus.addActionListener(new ActionListener() {
             @Override
@@ -164,7 +177,13 @@ public class Main {
                 WTF();
             }
         });
+
+        JPanel rigidArea = new JPanel();
+        rigidArea.setPreferredSize(new Dimension(450, 0)); // Adjust the height as needed
+        rigidArea.setOpaque(false);
+
         imagepanel1.add(plus);
+        imagepanel1.add(rigidArea);
         imagepanel1.add(text);
 
     }
@@ -200,8 +219,7 @@ public class Main {
         jFrame.setTitle("Java Swing Visual Code");
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setLayout(new BorderLayout());
-
-        // Creating navigation panel
+        jFrame.setUndecorated(true);
         JPanel navPanel = new JPanel();
         navPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 60, 10));
         navPanel.setBackground(rgb);
@@ -301,7 +319,7 @@ public class Main {
                                         return false;
                                     }
                                 };
-
+                                productBox.setLayout(new FlowLayout());
                                 productBox.setPreferredSize(new Dimension(150, 290));
                                 productBox.setBackground(rgb);
                                 productBox.setLayout(new BoxLayout(productBox, BoxLayout.PAGE_AXIS));
@@ -332,6 +350,7 @@ public class Main {
 
                                 JButton buyButton = new JButton("Buy");
                                 buyButton.setFont(new Font("Arial",Font.PLAIN,14));
+                                buyButton.setPreferredSize(new Dimension(270,30));
                                 buyButton.setBorder(new RoundedRectangleBorder(10)); // Adjust the arc value for roundness
                                 buyButton.setBackground(new Color(202, 255, 118));
                                 buyButton.addActionListener(new ActionListener() {
@@ -409,7 +428,7 @@ public class Main {
         jFrame.setVisible(true);
 
     }
-    static class RoundedRectangleBorder implements Border {
+    static class RoundedRectangleBorder  implements Border {
         private final int arc;
 
         public RoundedRectangleBorder(int arc) {
@@ -433,6 +452,26 @@ public class Main {
             g2.setColor(c.getForeground());
             g2.drawRoundRect(x, y, width - 1, height - 1, arc, arc);
             g2.dispose();
+        }
+    }
+    static class CircularBorder implements Border {
+        private int radius;
+
+        public CircularBorder(int radius) {
+            this.radius = radius;
+        }
+
+        public Insets getBorderInsets(Component c) {
+            return new Insets(this.radius + 1, this.radius + 1, this.radius + 1, this.radius + 1);
+        }
+
+        public boolean isBorderOpaque() {
+            return false;
+        }
+
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            g.setColor(Color.BLACK);
+            g.drawOval(x, y, width - 1, height - 1);
         }
     }
     public static void main(String[] args) {
