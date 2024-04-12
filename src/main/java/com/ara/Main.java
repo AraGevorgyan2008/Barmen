@@ -309,7 +309,7 @@ public class Main {
                                 JPanel imagepanel = new JPanel();
                                 imagepanel.setBackground(rgb);
                                 ImageIcon logoIcon1 = new ImageIcon("src\\Nkarner\\" + xmichq.getImg());
-                                Image img = logoIcon1.getImage().getScaledInstance(145, 225,Image.SCALE_FAST);
+                                Image img = logoIcon1.getImage().getScaledInstance(145, 215,Image.SCALE_FAST);
                                 ImageIcon resizedIcon = new ImageIcon(img);
                                 JLabel image1 = new JLabel(resizedIcon);
 
@@ -331,9 +331,9 @@ public class Main {
                                 description.setBackground(Color.BLACK);
 
                                 JButton buyButton = new JButton("Buy");
-                                buyButton.setFont(new Font("Arial",Font.PLAIN,16));
+                                buyButton.setFont(new Font("Arial",Font.PLAIN,14));
                                 buyButton.setBorder(new RoundedRectangleBorder(10)); // Adjust the arc value for roundness
-                                buyButton.setBackground(new Color(255, 255, 255));
+                                buyButton.setBackground(new Color(202, 255, 118));
                                 buyButton.addActionListener(new ActionListener() {
                                     @SneakyThrows
                                     @Override
