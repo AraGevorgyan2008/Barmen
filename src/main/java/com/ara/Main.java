@@ -28,17 +28,24 @@ import static java.awt.Color.white;
 import static java.awt.SystemColor.info;
 
 public class Main {
+    private static boolean q = false ;
     private static JPanel contentPanel1 ;
     private static JPanel imagepanel1;
     private static JPanel a ;
-    private static JFrame WTF;
+    private static String json2 ;
+    private static JFrame custom_Drink;
     private static Color rgb = new Color(255, 255, 255);
     private static JFrame jFrame;
     private static JFrame gnaAppication;
     private static JFrame loading;
     private static JFrame karlenickpac;
-  static void WTFTEXT(){
+  static void CUSTOM_DRINKTEXT(){
+      JLabel CustomDR = new JLabel("    Custom Drink     ");
+      CustomDR.setFont(new Font("Garamond",Font.ITALIC,40));
       JPanel panel = new JPanel();
+Gson json = new Gson();
+
+      panel.add(CustomDR);
       JLabel Drink1 = new JLabel("Mojito            ");
       JTextField JTF_Drink1 = new JTextField(30);
       JLabel Drink2 = new JLabel("Alcohol           ");
@@ -61,48 +68,11 @@ public class Main {
       close.addActionListener(new ActionListener() {
           @Override
           public void actionPerformed(ActionEvent e) {
-              WTF.setVisible(false);
+              custom_Drink.setVisible(false);
           }
       });
-      to_order.addActionListener(new ActionListener() {
-          @Override
-          public void actionPerformed(ActionEvent e) {
-              int text1 = 0 ;
-              int text2= 0 ;
-              int text3= 0 ;
-              int text4= 0 ;
-              int text5= 0 ;
-              int text6= 0 ;
-              int text7= 0 ;
-              int text8= 0 ;
-              if (!(JTF_Drink1.getText().equals(""))){
-                  text1 = Integer.valueOf(JTF_Drink1.getText());
-              }
-              if (!(JTF_Drink2.getText().equals(""))){
-              text2 = Integer.parseInt(JTF_Drink2.getText());
-              }
-                  if (!(JTF_Drink3.getText().equals(""))){
-              text3 = Integer.parseInt(JTF_Drink3.getText());
-                  }
-                      if (!(JTF_Drink4.getText().equals(""))){
-              text4 = Integer.parseInt(JTF_Drink4.getText());
-                      }
-                          if (!(JTF_Drink5.getText().equals(""))){
-              text5 = Integer.parseInt(JTF_Drink5.getText());
-                          }
-                              if (!(JTF_Drink6.getText().equals(""))){
-              text6 = Integer.parseInt(JTF_Drink6.getText());
-                              }
-                                  if (!(JTF_Drink7.getText().equals(""))){
-              text7 = Integer.parseInt(JTF_Drink7.getText());
-                                  }
-                                      if (!(JTF_Drink8.getText().equals(""))) {
-                                          text8 = Integer.parseInt(JTF_Drink8.getText());
-                                      }
-              int[] arr = new int[]{text1,text2,text3,text4,text5,text6,text7,text8};
-              System.out.println(Arrays.toString(arr));
-          }
-      });
+      to_order.setBackground(new Color(202, 255, 118));
+      close.setBackground(new Color(202, 255, 118));
 panel.setBackground(Color.WHITE);
       panel.add(Drink1);
       panel.add(JTF_Drink1);
@@ -122,7 +92,7 @@ panel.setBackground(Color.WHITE);
       panel.add(JTF_Drink8);
       panel.add(to_order);
       panel.add(close);
-      WTF.add(panel);
+      custom_Drink.add(panel);
   }
     public static ImageIcon resizeImageIcon(ImageIcon icon, int width, int height) {
         Image image = icon.getImage(); // Get the Image from ImageIcon
@@ -147,15 +117,15 @@ panel.setBackground(Color.WHITE);
          loading.add(panelloading);
         loading.setVisible(true);
     }
-    static void WTF(){
-        WTF = new JFrame();
-        WTF.setBounds(500,130,350,500);
-        WTF.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        WTF.setLayout(new BorderLayout());
-        WTF.setUndecorated(true);
-        WTF.setShape(new RoundRectangle2D.Double(0, 0, 350, 500, 30, 30)); // Set the shape of the window
-        WTFTEXT();
-        WTF.setVisible(true);
+    static void Custom_Drink(){
+        custom_Drink = new JFrame();
+        custom_Drink.setBounds(500,130,350,500);
+        custom_Drink.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        custom_Drink.setLayout(new BorderLayout());
+        custom_Drink.setUndecorated(true);
+        custom_Drink.setShape(new RoundRectangle2D.Double(0, 0, 350, 500, 30, 30)); // Set the shape of the window
+        CUSTOM_DRINKTEXT();
+        custom_Drink.setVisible(true);
     }
     static void imagepanel1(){
          imagepanel1 = new JPanel();
@@ -168,13 +138,13 @@ panel.setBackground(Color.WHITE);
         text.setFont(font);
         text.setAlignmentX(Component.CENTER_ALIGNMENT);
         JButton plus = new JButton("+");
-        plus.setBackground(Color.WHITE);
-        plus.setBorder(new CircularBorder(16));
+        plus.setBackground(new Color(202, 255, 118));
+        plus.setBorder(new RoundedRectangleBorder(10));
         plus.setFont(new Font("Arial",Font.PLAIN,50));
         plus.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                WTF();
+                Custom_Drink();
             }
         });
 
@@ -235,6 +205,7 @@ panel.setBackground(Color.WHITE);
         String topic6 = "topic6";
         String topic2 = "topic2";
         String topic5 = "topic5";
+        String MixerDR = "MixerDR";
         int subQos = 1;
         int pubQos = 1;
         try {
@@ -258,7 +229,11 @@ panel.setBackground(Color.WHITE);
             if (client.isConnected()) {
                 client.setCallback(new MqttCallback() {
                     public void messageArrived(String topic, MqttMessage message) throws Exception {
-
+                     if (q){
+                         MqttMessage id = new MqttMessage(json2.getBytes());
+                         id.setQos(0);
+                         client.publish(MixerDR, id);
+                           }
                         if(topic.equals(topic6)) {
                             karlenickpac.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                             karlenickpac.setBounds(450, 250, 500, 250);
@@ -299,26 +274,6 @@ panel.setBackground(Color.WHITE);
                                 contentPanel1 = new JPanel();
 
                                 JPanel productBox = new JPanel(new BorderLayout());
-                                Border roundedBorder = new Border() {
-                                    @Override
-                                    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-                                        Graphics2D g2 = (Graphics2D) g.create();
-                                        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-                                        float arc = 20; // Adjust the arc value for the roundness of corners
-                                        g2.draw(new RoundRectangle2D.Double(x, y, width - 1, height - 1, arc, arc));
-                                        g2.dispose();
-                                    }
-
-                                    @Override
-                                    public Insets getBorderInsets(Component c) {
-                                        return new Insets(4, 4, 4, 4); // Adjust as needed
-                                    }
-
-                                    @Override
-                                    public boolean isBorderOpaque() {
-                                        return false;
-                                    }
-                                };
                                 productBox.setLayout(new FlowLayout());
                                 productBox.setPreferredSize(new Dimension(150, 290));
                                 productBox.setBackground(rgb);
@@ -410,6 +365,7 @@ panel.setBackground(Color.WHITE);
                 client.subscribe(topic2, 0);
                 client.subscribe(topic6, 0);
                 client.subscribe(topic5, 0);
+                client.subscribe(MixerDR,0);
             }
 
 
