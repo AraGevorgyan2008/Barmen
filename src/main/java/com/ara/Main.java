@@ -18,10 +18,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.CountDownLatch;
 
 import static java.awt.Color.white;
@@ -31,6 +29,7 @@ public class Main {
     private static boolean q = false ;
     private static JPanel contentPanel1 ;
     private static JPanel imagepanel1;
+    private static JButton to_order = new JButton("Order");
     private static JPanel a ;
     private static String json2 ;
     private static JFrame custom_Drink;
@@ -39,31 +38,62 @@ public class Main {
     private static JFrame gnaAppication;
     private static JFrame loading;
     private static JFrame karlenickpac;
+    private static String info1;
+  @SneakyThrows
   static void CUSTOM_DRINKTEXT(){
       JLabel CustomDR = new JLabel("    Custom Drink     ");
       CustomDR.setFont(new Font("Garamond",Font.ITALIC,40));
       JPanel panel = new JPanel();
-Gson json = new Gson();
-
       panel.add(CustomDR);
-      JLabel Drink1 = new JLabel("Mojito            ");
+      Gson json = new Gson();
+      ObjectMapper objectMapper = new ObjectMapper();
+      List<Xmichqner> list = objectMapper.readValue(info1, new TypeReference<List<Xmichqner>>() {
+      });
+      List<Xmichqner> list1 = objectMapper.readValue(info1, new TypeReference<List<Xmichqner>>() {
+      });
+      list1.sort(new Comparator<Xmichqner>() {
+          @Override
+          public int compare(Xmichqner o1, Xmichqner o2) {
+              return Integer.compare(o1.getName().length(),o2.getName().length());
+          }
+      });
       JTextField JTF_Drink1 = new JTextField(30);
-      JLabel Drink2 = new JLabel("Alcohol           ");
       JTextField JTF_Drink2 = new JTextField(30);
-      JLabel Drink3 = new JLabel("Sparkling water   ");
       JTextField JTF_Drink3 = new JTextField(30);
-      JLabel Drink4 = new JLabel("Fanta             ");
       JTextField JTF_Drink4 = new JTextField(30);
-      JLabel Drink5 = new JLabel("Mango juice       ");
       JTextField JTF_Drink5 = new JTextField(30);
-      JLabel Drink6 = new JLabel("Coke             ");
       JTextField JTF_Drink6 = new JTextField(30);
-      JLabel Drink7 = new JLabel("Orange           ");
       JTextField JTF_Drink7 = new JTextField(30);
-      JLabel Drink8 = new JLabel("Pommegranate juice");
-      JTextField JTF_Drink8 = new JTextField(30);
+      for (int i = 0; i <= list.size() - 1;i++){
+          if (!list.get(i).isAlcho()) {
+              JLabel Drink1 = new JLabel(list.get(i).getName() + " ".repeat(list1.get(list1.size() - 1).getName().length() - list.get(i).getName().length()));
+              panel.add(Drink1);
+              if (i == 0){
+                  panel.add(JTF_Drink1);
+              }
+              if (i == 2){
+                  panel.add(JTF_Drink2);
+              }
+              if (i == 3){
+                  panel.add(JTF_Drink3);
+              }
+              if (i == 4){
+                  panel.add(JTF_Drink4);
+              }
+              if (i == 5){
+                  panel.add(JTF_Drink5);
+              }
+              if (i == 7){
+                  panel.add(JTF_Drink6);
+              }
+              if (i == 8){
+                  panel.add(JTF_Drink7);
+              }
 
-      JButton to_order = new JButton("Order");
+
+
+          }
+      }
       JButton close = new JButton("Close");
       close.addActionListener(new ActionListener() {
           @Override
@@ -72,24 +102,41 @@ Gson json = new Gson();
           }
       });
       to_order.setBackground(new Color(202, 255, 118));
+
+      to_order.addActionListener(new ActionListener() {
+          @Override
+          public void actionPerformed(ActionEvent e) {
+              int D1 = 0;
+              int D2 = 0;
+              int D3 = 0;
+              int D4 = 0;
+              int D5 = 0;
+              int D6 = 0;
+              int D7 = 0;
+
+              if (!JTF_Drink1.getText().equals("")) {
+                  D1 = Integer.parseInt(JTF_Drink1.getText());
+              }
+              if (!JTF_Drink2.getText().equals("")){
+                   D2 = Integer.parseInt(JTF_Drink2.getText());}
+              if (!JTF_Drink3.getText().equals("")){
+                   D3 = Integer.parseInt(JTF_Drink3.getText());}
+              if (!JTF_Drink4.getText().equals("")){
+                   D4 = Integer.parseInt(JTF_Drink4.getText());}
+              if (!JTF_Drink5.getText().equals("")){
+                   D5 = Integer.parseInt(JTF_Drink5.getText());}
+              if (!JTF_Drink6.getText().equals("")){
+                  D6 = Integer.parseInt(JTF_Drink6.getText());
+          }
+              if (!JTF_Drink7.getText().equals("")) {
+                   D7 = Integer.parseInt(JTF_Drink7.getText());
+              }
+              int[] arr = new int[]{D1,D2,D3,D4,D5,D6,D7};
+               json2 = json.toJson(arr);
+          }
+      });
       close.setBackground(new Color(202, 255, 118));
 panel.setBackground(Color.WHITE);
-      panel.add(Drink1);
-      panel.add(JTF_Drink1);
-      panel.add(Drink2);
-      panel.add(JTF_Drink2);
-      panel.add(Drink3);
-      panel.add(JTF_Drink3);
-      panel.add(Drink4);
-      panel.add(JTF_Drink4);
-      panel.add(Drink5);
-      panel.add(JTF_Drink5);
-      panel.add(Drink6);
-      panel.add(JTF_Drink6);
-      panel.add(Drink7);
-      panel.add(JTF_Drink7);
-      panel.add(Drink8);
-      panel.add(JTF_Drink8);
       panel.add(to_order);
       panel.add(close);
       custom_Drink.add(panel);
@@ -229,11 +276,18 @@ panel.setBackground(Color.WHITE);
             if (client.isConnected()) {
                 client.setCallback(new MqttCallback() {
                     public void messageArrived(String topic, MqttMessage message) throws Exception {
-                     if (q){
-                         MqttMessage id = new MqttMessage(json2.getBytes());
-                         id.setQos(0);
-                         client.publish(MixerDR, id);
-                           }
+                     to_order.addActionListener(new ActionListener() {
+                         @SneakyThrows
+                         @Override
+                         public void actionPerformed(ActionEvent e) {
+
+                             MqttMessage id = new MqttMessage(json2.getBytes());
+                             id.setQos(0);
+                             client.publish(MixerDR, id);
+                         }
+                     });
+
+
                         if(topic.equals(topic6)) {
                             karlenickpac.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                             karlenickpac.setBounds(450, 250, 500, 250);
@@ -263,7 +317,7 @@ panel.setBackground(Color.WHITE);
                             a.setBackground(rgb);
                             System.out.println("topic: " + topic);
                             System.out.println("qos: " + message.getQos());
-                            String info1 = new String(message.getPayload());
+                             info1 = new String(message.getPayload());
                             ObjectMapper objectMapper = new ObjectMapper();
                             List<Xmichqner> list = objectMapper.readValue(info1, new TypeReference<List<Xmichqner>>() {
                             });
