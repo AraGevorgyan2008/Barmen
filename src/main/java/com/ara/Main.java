@@ -132,7 +132,12 @@ public class Main {
                    D7 = Integer.parseInt(JTF_Drink7.getText());
               }
               int[] arr = new int[]{D1,D2,D3,D4,D5,D6,D7};
-               json2 = json.toJson(arr);
+              Random random = new Random(10);
+              int i1 = random.nextInt();
+              if (i1 < 0){
+                  i1 = -1 * i1 ;
+              }
+               json2 = json.toJson(new XmichqId(arr, String.valueOf(i1),0,""));
           }
       });
       close.setBackground(new Color(202, 255, 118));
@@ -375,7 +380,7 @@ panel.setBackground(Color.WHITE);
                                             if (i1 < 0){
                                                 i1 = -1 * i1 ;
                                             }
-                                            String json1 = json.toJson(new XmichqId(xmichq.getDrink_id(), String.valueOf(i1), ""));
+                                            String json1 = json.toJson(new XmichqId(xmichq.getDrink_id(), String.valueOf(i1),0, ""));
                                             System.out.println(json1);
                                             MqttMessage id = new MqttMessage(json1.getBytes());
                                             id.setQos(0);
