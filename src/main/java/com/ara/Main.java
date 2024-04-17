@@ -35,10 +35,12 @@ public class Main {
     private static JFrame custom_Drink;
     private static Color rgb = new Color(255, 255, 255);
     private static JFrame jFrame;
+    private static JFrame Make_Drink;
     private static JFrame gnaAppication;
     private static JFrame loading;
     private static JFrame karlenickpac;
     private static String info1;
+    private static String we;
   @SneakyThrows
   static void CUSTOM_DRINKTEXT(){
       JLabel CustomDR = new JLabel("    Custom Drink     ");
@@ -169,6 +171,25 @@ panel.setBackground(Color.WHITE);
          loading.add(panelloading);
         loading.setVisible(true);
     }
+    static void Make_Drink(){
+        Make_Drink = new JFrame("Loading...");
+        Make_Drink.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Make_Drink.setUndecorated(true);
+        Make_Drink.setBounds(450,250,500,260);
+        JPanel panelloading = new JPanel();
+        ImageIcon loadingIcon = new ImageIcon("src\\Nkarner\\giphy.gif");
+        ImageIcon loadingicon = resizeImageIcon(loadingIcon,200,200);
+        JLabel labelLoading = new JLabel(loadingicon);
+        JLabel lcvume = new JLabel("Ձեր խմիչքը պատրաստ է  " + we);
+        lcvume.setFont(new Font("Arial",Font.ITALIC,30));
+
+        panelloading.add(labelLoading);
+        panelloading.add(lcvume);
+        Make_Drink.setLayout(new BorderLayout());
+        Make_Drink.add(panelloading);
+        Make_Drink.setVisible(true);
+    }
+
     static void Custom_Drink(){
         custom_Drink = new JFrame();
         custom_Drink.setBounds(500,130,350,500);
@@ -258,6 +279,9 @@ panel.setBackground(Color.WHITE);
         String topic2 = "topic2";
         String topic5 = "topic5";
         String MixerDR = "MixerDR";
+        String topic3 = "topic3";
+        String topic8 = "topic8";
+        String topic9 = "topic9";
         int subQos = 1;
         int pubQos = 1;
         try {
@@ -292,7 +316,15 @@ panel.setBackground(Color.WHITE);
                          }
                      });
 
+                       if (topic.equals(topic8)){
+                           we = Arrays.toString(message.getPayload());
+                       }
+                        if (topic.equals(topic3)){
+                            loading();
+                            Thread.sleep(10000);
+                            Make_Drink();
 
+                        }
                         if(topic.equals(topic6)) {
                             karlenickpac.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                             karlenickpac.setBounds(450, 250, 500, 250);
@@ -385,7 +417,7 @@ panel.setBackground(Color.WHITE);
                                             MqttMessage id = new MqttMessage(json1.getBytes());
                                             id.setQos(0);
                                             client.publish(topic2, id);
-                                            loading();
+
                                         }
                                     }
                                 });
@@ -422,7 +454,9 @@ panel.setBackground(Color.WHITE);
 
                 client.subscribe(topic1, subQos);
                 client.subscribe(topic2, 0);
+                client.subscribe(topic3, 0);
                 client.subscribe(topic6, 0);
+                client.subscribe(topic8, 0);
                 client.subscribe(topic5, 0);
                 client.subscribe(MixerDR,0);
             }
