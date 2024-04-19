@@ -91,9 +91,6 @@ public class Main {
               if (i == 8){
                   panel.add(JTF_Drink7);
               }
-
-
-
           }
       }
       JButton close = new JButton("Close");
@@ -345,7 +342,7 @@ panel.setBackground(Color.WHITE);
                         if(topic.equals(topic2)){
                             String info = new String(message.getPayload());
                             if (info.equals("False")){
-                                loading.setVisible(false);
+                                Make_Drink.setVisible(false);
                             }
                         }
                         if (topic.equals(topic1)) {
